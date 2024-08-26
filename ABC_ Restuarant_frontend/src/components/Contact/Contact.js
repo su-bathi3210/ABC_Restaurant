@@ -16,7 +16,7 @@ const Contact = () => {
     <div className="contact-container">
       <h1>Contact Us</h1>
       <p>We’d love to hear from you! Whether you have a question about our menu, want to make a reservation, or need more information about our services, we’re here to help. At ABC Restaurant, we value your feedback and are committed to ensuring a memorable dining experience. Please use the form below to get in touch with us, or reach out directly via phone or email. We look forward to serving you!</p>
-      
+
       <div className="contact-content">
         <div className="contact-box">
           <h2>Our Location</h2>
@@ -24,18 +24,18 @@ const Contact = () => {
           <p>Phone: (123) 456-7890</p>
           <p>Email: abc@restaurant.com</p>
         </div>
-        
+
         <div className="contact-box">
           <h2>Working Hours</h2>
           <p>Monday - Friday: 11:00 AM - 10:00 PM</p>
           <p>Saturday - Sunday: 9:00 AM - 11:00 PM</p>
         </div>
       </div>
-      
+
       <div className="feedback-form">
         <h2>Send Us Your Feedback</h2>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="name">Name:</label>
+
           <input
             type="text"
             id="name"
@@ -44,8 +44,8 @@ const Contact = () => {
             placeholder="Enter your name"
             required
           /> <br></br>
-          
-          <label htmlFor="email">Email:</label>
+
+
           <input
             type="email"
             id="email"
@@ -54,19 +54,22 @@ const Contact = () => {
             placeholder="Enter your email"
             required
           /> <br></br>
-          
-          <label htmlFor="feedback">Feedback:</label>
+
+
           <textarea
             id="feedback"
             value={feedback}
             onChange={(e) => setFeedback(e.target.value)}
             placeholder="Share your feedback with us"
             required
-          ></textarea>
-          
+          ></textarea> <br></br>
+
           <button type="submit">Submit</button>
         </form>
       </div>
+      <footer className="about-footer">
+        <p>&copy; 2024 Our Restaurant. All Rights Reserved.</p>
+      </footer>
     </div>
   );
 };
