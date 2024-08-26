@@ -68,8 +68,8 @@ const Contact = () => {
         </form>
       </div>
       <footer className="about-footer">
-        <p>&copy; 2024 Our Restaurant. All Rights Reserved.</p>
-      </footer>
+                <p>&copy; 2024 Our Restaurant. All Rights Reserved.</p>
+            </footer>
     </div>
   );
 };

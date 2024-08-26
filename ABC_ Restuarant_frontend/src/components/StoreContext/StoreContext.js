@@ -42,7 +42,7 @@ const StoreContextProvider = (props) => {
 
     const contextValue = {
         food_list,
-        setFoodList, // This will allow you to update the food list
+        setFoodList,
         cartItems,
         setCartItems,
         addToCart,
