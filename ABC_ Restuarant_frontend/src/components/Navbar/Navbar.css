@@ -1,0 +1,135 @@
+.navbar {
+  padding: 45px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.logo-image {
+  width: 250px;
+  height: 250px;
+  margin-bottom: 20px;
+  margin-top: -85px;
+  margin-left: -62.4px;
+}
+
+.navbar-menu {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  flex: 2;
+  justify-content: center;
+  margin-top: -130px;
+  margin-left: 50px;
+}
+
+.navbar-item {
+  color: black;
+  text-decoration: none;
+  padding: 25px;
+  font-size: 16px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 500;
+}
+
+.navbar-item:hover {
+  background-color: #575757;
+  border-radius: 4px;
+  padding: 10px 20px;
+}
+
+.navbar-auth {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: flex-end;
+  margin-top: -130px;
+}
+
+button {
+  color: white;
+  background-color: black;
+  text-decoration: none;
+  padding: 10px 20px;
+  border: 1px solid;
+  border-radius: 4px;
+  font-size: 15px;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+button:hover {
+  background-color: tomato;
+}
+
+.cart-button {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.cart-icon {
+  height: 30px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: tomato;
+  position: relative;
+  top: -22px;
+  right: 4px;
+}
+
+.navbar-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.bar {
+  width: 25px;
+  height: 3px;
+  background-color: #fff;
+  margin: 4px 0;
+}
+
+@media (max-width: 768px) {
+  .navbar-menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .navbar-menu.active {
+    display: flex;
+  }
+
+  .navbar-auth {
+    display: none;
+  }
+
+  .navbar-auth.active {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+  }
+
+  .cart-button {
+    display: none;
+  }
+
+  .navbar-toggle {
+    display: flex;
+  }
+}

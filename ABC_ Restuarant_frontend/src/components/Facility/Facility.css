@@ -1,0 +1,152 @@
+* {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.facility-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 63px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    
+}
+
+.facility-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.facility-header h1 {
+    font-size: 35px;
+    color: #e39533;
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+    margin-top: -144px;
+}
+
+.facility-header h1:hover {
+    transform: scale(1.1);
+}
+
+
+.facility-header p {
+    font-size: 1.1em;
+    font-weight: 700;
+    color: #d62e2e;
+    margin-top: 6px;
+}
+
+.facility-gallery {
+    margin-bottom: 60px;
+    padding: 0 10px;
+    text-align: center;
+}
+
+.gallery-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 60px;
+    gap: 50px;
+}
+
+.gallery-item.reverse {
+    flex-direction: row-reverse;
+}
+
+.image-container {
+    flex: 1;
+    overflow: hidden;
+    border-radius: 10px;
+    transition: transform 0.5s ease-in-out;
+}
+
+.image-container img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.5s ease-in-out;
+}
+
+.gallery-item:hover .image-container img {
+    transform: scale(1.05);
+}
+
+.description {
+    flex: 1;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.description h3 {
+    font-size: 25px;
+    color: black;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.description p {
+    font-size: 15px;
+    font-weight: 500;
+    width: 500px;
+    color: #555;
+    line-height: 1.6;
+}
+
+.facility-features {
+    margin-bottom: 60px;
+    padding: 0 20px;
+}
+
+.facility-features h2 {
+    font-size: 28px;
+    color: #4c5a23;
+    margin-bottom: 25px;
+    margin-top: 100px;
+    text-align: center;
+}
+
+.facility-features ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.facility-features li {
+    width: 100px;
+    font-size: 16px;
+    color: white;
+    padding: 18px;
+    font-weight: 600;
+    background: tomato;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+}
+
+.facility-features li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+    border-color: yellow;
+}
+
+.about-footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.about-footer p {
+    font-size: 0.9em;
+    color: #7f8c8d;
+    font-weight: 700;
+}

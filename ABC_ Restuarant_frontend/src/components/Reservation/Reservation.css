@@ -1,0 +1,100 @@
+* {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.reservation-container {
+    max-width: 530px;
+    margin: 45px auto;
+    padding: 30px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    border-radius: 8px;
+    margin-top: -100px;
+    justify-content: center;
+}
+
+.reservation-title {
+    text-align: center;
+    font-size: 33px;
+    margin-bottom: 36px;
+    color: #4c5a23;
+    text-transform: uppercase;
+    font-weight: 700;
+
+}
+
+.reservation-form .form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-control::placeholder {
+    color: #999;
+}
+
+.form-control:focus {
+    border-color: #e39533;
+    outline: none;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    background-color: tomato;
+    border: none;
+    color: white;
+    font-size: 1.1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: #600000;
+}
+
+select.form-control {
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="292.4" height="292.4"><path fill="%23333" d="M287 69.4c-3.9-3.9-10.2-3.9-14.1 0L146.2 196.2 19.5 69.4c-3.9-3.9-10.2-3.9-14.1 0s-3.9 10.2 0 14.1l133.3 133.3c2 2 4.5 2.9 7.1 2.9s5.1-1 7.1-2.9L287 83.5c3.9-3.9 3.9-10.2 0-14.1z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+    background-size: 12px 12px;
+    cursor: pointer;
+    width: 524px;
+}
+
+select.form-control option {
+    color: #333;
+    background-color: #fff;
+}
+
+
+@media (max-width: 768px) {
+    .reservation-container {
+        padding: 10px;
+    }
+
+    .reservation-title {
+        font-size: 1.5rem;
+    }
+}
+
+.about-footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f8f9fa;
+}
+
+.about-footer p {
+    font-size: 0.9em;
+    color: #7f8c8d;
+}
