@@ -5,24 +5,23 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import './Reservation.css';
 
-// Define your validation schema
+
 const tableSchema = yup.object().shape({
   name: yup.string().required('Name is required'),
   outlet: yup.string().required('Outlet is required'),
-  username: yup.string().required('Username is required'),
+  email: yup.string().email('Invalid email address').required('Email is required'),
   date: yup.date().required('Date is required'),
   time: yup.string().required('Time is required'),
   guests: yup.number().positive('Number of guests must be positive').required('Number of guests is required'),
   contactNo: yup.string().required('Contact number is required')
 });
 
-// Placeholder function for username validation
-const validateUsername = async (username) => {
-  // Replace with actual validation logic
-  return true; // Simulating a valid username for demonstration
+
+const validateEmail = async (email) => {
+  return true;
 };
 
-// Placeholder ConfirmationDialog component
+
 const ConfirmationDialog = ({ isOpen, onConfirm, onCancel, message }) => {
   if (!isOpen) return null;
   return (
@@ -36,7 +35,7 @@ const ConfirmationDialog = ({ isOpen, onConfirm, onCancel, message }) => {
 
 const Reservation = () => {
   const [showDialog, setShowDialog] = useState(false);
-  const [submitHandler, setSubmitHandler] = useState(() => () => {});
+  const [submitHandler, setSubmitHandler] = useState(() => () => { });
   const [dialogMessage, setDialogMessage] = useState('');
 
   const {
@@ -48,10 +47,9 @@ const Reservation = () => {
   });
 
   const onTableSubmit = async (data) => {
-    const isUsernameValid = await validateUsername(data.username);
-    if (!isUsernameValid) {
-      console.log('Username does not exist');
-      // Handle invalid username
+    const isEmailValid = await validateEmail(data.email);
+    if (!isEmailValid) {
+      console.log('Email does not exist');
       return;
     }
 
@@ -59,15 +57,16 @@ const Reservation = () => {
     setDialogMessage('Are you sure you want to submit the table reservation?');
     setSubmitHandler(() => async () => {
       try {
-        await axios.post('/table', tableData); // Post to reservation endpoint
+        await axios.post('/table', tableData);
         alert('Table reservation submitted successfully. You will receive a confirmation in your email!');
-        window.location.reload(); // Optionally, redirect or update UI instead of reloading
+        window.location.reload();
       } catch (error) {
         console.error('Error submitting table reservation:', error);
       }
     });
     setShowDialog(true);
   };
+
 
   const handleConfirm = async () => {
     setShowDialog(false);
@@ -81,15 +80,15 @@ const Reservation = () => {
   };
 
   const outlets = [
-    { value: 'kollupitiya', label: 'Kollupitiya' },
-    { value: 'maharagama', label: 'Maharagama' },
-    { value: 'nugegoda', label: 'Nugegoda' }
+    { value: 'Batharamulla', label: 'Batharamulla' },
+    { value: 'Maharagama', label: 'Maharagama' },
+    { value: 'Athurigitiya', label: 'Athurigitiya' }
   ];
 
   return (
     <div className="reservation-container">
       <form className="reservation-form" onSubmit={handleTableSubmit(onTableSubmit)}>
-        <h1>RESERVE TABLE</h1>
+        <h1>RESERVE  TABLE</h1>
 
         <div className="form-row">
           <div className="form-group">
@@ -114,11 +113,12 @@ const Reservation = () => {
 
         <div className="form-row">
           <div className="form-group">
-            <label>User Name:</label>
-            <input type="text" {...registerTable('username')} placeholder="Enter your Registered username" />
-            {tableErrors.username && <p>{tableErrors.username.message}</p>}
+            <label>Email:</label>
+            <input type="email" {...registerTable('email')} placeholder="Enter your email" />
+            {tableErrors.email && <p>{tableErrors.email.message}</p>}
           </div>
         </div>
+
 
         <div className="form-row">
           <div className="form-group">
@@ -156,6 +156,11 @@ const Reservation = () => {
         onCancel={handleCancel}
         message={dialogMessage}
       />
+
+      <footer className="about-footer">
+        <p>&copy; 2024 Our Restaurant. All Rights Reserved.</p>
+      </footer>
+
     </div>
   );
 };
