@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
-import './Admin.css'; // Changed from Admin.css to GalleryForm.css
+import './Admin.css';
 
 const GalleryForm = () => {
     const [galleryName, setGalleryName] = useState('');
@@ -123,7 +123,7 @@ const GalleryForm = () => {
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
-                setImageData(reader.result.split(',')[1]); // Get base64 string
+                setImageData(reader.result.split(',')[1]);
             };
             reader.readAsDataURL(file);
         }
@@ -133,7 +133,6 @@ const GalleryForm = () => {
         <div className="gallery-container">
             <h2>Gallery Management</h2>
 
-            {/* Add Gallery Form */}
             <div className="form-section">
                 <h3>Add Gallery</h3>
                 <form onSubmit={handleAddGallery} className="gallery-form">
@@ -151,7 +150,7 @@ const GalleryForm = () => {
                 </form>
             </div>
 
-            {/* Add Item to Gallery Form */}
+
             <div className="form-section">
                 <h3>Add Item to Gallery</h3>
                 <form onSubmit={handleAddItemToGallery} className="gallery-form">
@@ -185,7 +184,7 @@ const GalleryForm = () => {
                 </form>
             </div>
 
-            {/* Edit Item Form */}
+
             {selectedItem && (
                 <div className="form-section">
                     <h3>Edit Item</h3>
@@ -205,7 +204,7 @@ const GalleryForm = () => {
                 </div>
             )}
 
-            {/* Item List */}
+
             <div className="gallery-items">
                 <h3>Items in Gallery</h3>
                 <ul className="item-list">
@@ -226,7 +225,7 @@ const GalleryForm = () => {
                 </ul>
             </div>
 
-            {/* Modal for Viewing Item */}
+
             <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={closeModal}

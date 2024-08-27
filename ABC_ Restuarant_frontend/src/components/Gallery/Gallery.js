@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'; // Ensure you import axios for making HTTP requests
+import axios from 'axios';
 import './Gallery.css';
 
 const Gallery = () => {
@@ -10,9 +10,9 @@ const Gallery = () => {
     const fetchImages = async () => {
       try {
         const response = await axios.get('/gallery/gallery', { params: { name: activeForm } });
-        console.log(response.data); // Debugging: Check the structure of response
+        console.log(response.data);
 
-        // Check if response.data.images is an array of base64 image strings
+
         if (Array.isArray(response.data.images)) {
           setImages(response.data.images);
         } else {
@@ -28,33 +28,50 @@ const Gallery = () => {
   }, [activeForm]);
 
   return (
-    <div className="gallery-container">
+    <div className="gallery">
       <div className="gallery-header">
         <h1>Gallery</h1>
-        <p>Discover Our Culinary Delights</p>
-        <p>Immerse yourself in the vibrant world of our restaurant through our gallery...</p>
+        <p>Welcome to our culinary showcase! Dive into a visual feast that captures the essence of our restaurant. From savory dishes and delectable desserts to refreshing beverages and elegant ambiance, our gallery offers a taste of the vibrant experiences that await you. Let these images whet your appetite and inspire your next visit. Enjoy a glimpse of the passion and creativity that define our cuisine.</p>
       </div>
       <div className="full-gallery-container">
         <div className="galleries-container">
           <div className="galleries-button-group">
+
+            <button
+              onClick={() => setActiveForm('All')}
+              className={`galleries-form-toggle-button ${activeForm === 'All' ? 'active' : ''}`}
+            >
+              All
+            </button>
+
             <button
               onClick={() => setActiveForm('Food')}
               className={`galleries-form-toggle-button ${activeForm === 'Food' ? 'active' : ''}`}
             >
               Food
             </button>
+
+            <button
+              onClick={() => setActiveForm('Dessert')}
+              className={`galleries-form-toggle-button ${activeForm === 'Dessert' ? 'active' : ''}`}
+            >
+              Dessert
+            </button>
+
+            <button
+              onClick={() => setActiveForm('Beverages')}
+              className={`galleries-form-toggle-button ${activeForm === 'Beverages' ? 'active' : ''}`}
+            >
+              Beverages
+            </button>
+
             <button
               onClick={() => setActiveForm('Restaurant')}
               className={`galleries-form-toggle-button ${activeForm === 'Restaurant' ? 'active' : ''}`}
             >
               Restaurant
             </button>
-            <button
-              onClick={() => setActiveForm('Other')}
-              className={`galleries-form-toggle-button ${activeForm === 'Other' ? 'active' : ''}`}
-            >
-              Other
-            </button>
+
           </div>
 
           <div className="galleries-images">
@@ -62,8 +79,8 @@ const Gallery = () => {
               images.map((imageData, index) => (
                 <div key={index} className="galleries-image">
                   <img
-                    src={`data:image/jpeg;base64,${imageData}`} // Make sure imageData is just the base64 string
-                    alt={`${activeForm} Gallery Image`}
+                    src={`data:image/jpeg;base64,${imageData}`}
+                    alt={`${activeForm}`}
                   />
                 </div>
               ))
@@ -73,6 +90,10 @@ const Gallery = () => {
           </div>
         </div>
       </div>
+
+      <footer className="about-footer">
+        <p>&copy; 2024 Our Restaurant. All Rights Reserved.</p>
+      </footer>
     </div>
   );
 };

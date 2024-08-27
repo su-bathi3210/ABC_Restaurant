@@ -1,6 +1,6 @@
 import React from 'react';
 import './About.css';
-import restaurant from './restaurant.png';
+import restaurant from '../../images/restaurant.png';
 
 export const About = () => {
     return (
@@ -12,7 +12,6 @@ export const About = () => {
 
             <section className="about-story">
                 <div className="story-content">
-                    <h2>Our Story</h2>
                     <p>At ABC Restaurant, our journey began in 2024 with a vision to redefine the dining experience in our community. From the moment we opened our doors, our mission has been to create a dining haven where exquisite cuisine meets exceptional service, and every visit feels like coming home. </p>
                     <p>Our story is one of passion, dedication, and a commitment to excellence. We believe that great food starts with the best ingredients, and our chefs meticulously source the finest local produce to ensure that every dish is not only delicious but also fresh and sustainable. Our menu is a celebration of flavors, where traditional favorites are given a modern twist, and innovative creations are crafted to delight and surprise.</p>
                     <p>But our dedication goes beyond just food. We have carefully designed our restaurant to offer a warm and welcoming ambiance that makes every guest feel special. Our inviting atmosphere is complemented by attentive service, ensuring that each visit to ABC Restaurant is memorable for all the right reasons.</p>
@@ -51,7 +50,7 @@ export const About = () => {
             </section>
 
             <section className="about-events">
-                <h2>Special Events & Offers</h2>
+                <h2>Special Events</h2>
                 <div className="events">
                     <div className="event">
                         <h3>Wine Tasting Night</h3>

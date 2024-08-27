@@ -34,7 +34,7 @@ export const Footer = () => {
             <li>011-2345678</li>
             <li>abc@gmail.com</li>
           </ul><br></br>     <br></br>
-          <h2>Opening Hours</h2>
+          <h3>Opening Hours</h3>
           <ul>
             <li>Mon-Fri: 9am - 10pm</li>
             <li>Sat-Sun: 10am - 11pm</li>

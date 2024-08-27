@@ -18,7 +18,7 @@ const Facility = () => {
     <div className="facility-container">
       <header className="facility-header">
         <h1>Our Facilities</h1>
-        <p>Experience exceptional dining with our state-of-the-art facilities.</p>
+        <p>ABC Restaurant offers a range of top-notch facilities, including spacious seating areas, a well-equipped kitchen, clean restrooms, and accessible amenities to ensure a comfortable and enjoyable dining experience for all guests.</p>
       </header>
 
       <section className="facility-gallery">
