@@ -3,14 +3,14 @@
 }
 
 .cart {
-    padding: 60px;
+    padding: 0px;
     max-width: 1200px;
     margin: auto;
 
 }
 
 .cart-items {
-    padding: 20px;
+    padding: -5px;
 }
 
 .cart-items-title {

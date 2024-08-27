@@ -1,60 +1,57 @@
-import React, { useContext } from 'react'
-import './PlaceOrder.css'
-import { StoreContext } from '../../components/StoreContext/StoreContext'
+import React, { useContext } from 'react';
+import './PlaceOrder.css';
+import { StoreContext } from '../../components/StoreContext/StoreContext';
 
 const PlaceOrder = () => {
+    const { getTotalCartAmount } = useContext(StoreContext);
 
-const {getTotalCartAmount} = useContext(StoreContext)
-    
     return (
-        <form className='place-order'>
-            <div className='place-order-left'>
-                <p className='title'>Delivery Information</p>
-                <div className='multi-fields'>
-                    <input type='text' placeholder='First Name' />
-                    <input type='text' placeholder='Last Name' />
+        <>
+            <form className='place-order'>
+                <div className='place-order-left'>
+                    <p className='title'>Delivery Information</p>
+                    <div className='multi-fields'>
+                        <input type='text' placeholder='First Name' />
+                        <input type='text' placeholder='Last Name' />
+                    </div>
+                    <input type='text' placeholder='Email Address' />
+                    <input type='text' placeholder='Street' />
+                    <div className='multi-fields'>
+                        <input type='text' placeholder='City' />
+                        <input type='text' placeholder='State' />
+                    </div>
+                    <div className='multi-fields'>
+                        <input type='text' placeholder='Zip Code' />
+                        <input type='text' placeholder='Country' />
+                    </div>
+                    <input type='text' placeholder='Phone' />
                 </div>
-                <input type='text' placeholder='Email Address' />
-                <input type='text' placeholder='Street' />
-                <div className='multi-fields'>
-                    <input type='text' placeholder='City' />
-                    <input type='text' placeholder='State' />
-                </div>
-                <div className='multi-fields'>
-                    <input type='text' placeholder='Zip Code' />
-                    <input type='text' placeholder='Country' />
-                </div>
-                <input type='text' placeholder='Phone' />
-            </div>
-            <div className='place-order-right'>
-                <div className='cart-total'>
-                    <h2>Cart Total</h2>
-                    <div>
-
+                <div className='place-order-right'>
+                    <div className='cart-total'>
+                        <h2>Cart Total</h2>
                         <div className='cart-total-details'>
                             <p>Subtotal</p>
                             <p>${getTotalCartAmount()}</p>
                         </div>
-
                         <hr />
                         <div className='cart-total-details'>
                             <p>Delivery Fee</p>
                             <p>${2}</p>
                         </div>
-
                         <hr />
                         <div className='cart-total-details'>
                             <p>Total</p>
                             <p>${getTotalCartAmount() + 2}</p>
                         </div>
+                        <button>PROCEED TO PAYMENT</button>
                     </div>
-                    <button>PROCESS TO PAYMENT</button>
                 </div>
-
-            </div>
-
-        </form>
-    )
+            </form>
+            <footer className="about-footer">
+                <p>&copy; 2024 Our Restaurant. All Rights Reserved.</p>
+            </footer>
+        </>
+    );
 }
 
-export default PlaceOrder
+export default PlaceOrder;

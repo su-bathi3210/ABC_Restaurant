@@ -1,8 +1,8 @@
 package abc.example.abcResturant.Service;
 
 import abc.example.abcResturant.Model.Gallery;
+import abc.example.abcResturant.Model.Gallery.Item;
 import abc.example.abcResturant.Repository.GalleryRepository;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,48 +15,75 @@ public class GalleryService {
     @Autowired
     private GalleryRepository galleryRepository;
 
-    // Get all Images
-    public List<Gallery> allGallery() {
+    public Optional<Gallery> getGalleryByName(String name) {
+        return galleryRepository.findByName(name); // Assuming you have a method findByName in your repository
+    }
+
+    // Get all galleries
+    public List<Gallery> getAllGalleries() {
         return galleryRepository.findAll();
     }
 
-    // Get a single image by id
-    public Optional<Gallery> singleGallery(ObjectId id) {
+    // Get a single gallery by ID
+    public Optional<Gallery> getGalleryById(String id) {
         return galleryRepository.findById(id);
     }
 
-    // Add a new image
+    // Add a new gallery
     public Gallery addGallery(Gallery gallery) {
-        gallery.setPictureId(generateGalleryId());
         return galleryRepository.save(gallery);
     }
 
-    // Generate a new product ID
-    private String generateGalleryId() {
-        long count = galleryRepository.count();
-        return String.format("image-%03d", count + 1);
+    // Update an existing gallery
+    public Gallery updateGallery(String id, Gallery gallery) {
+        if (galleryRepository.existsById(id)) {
+            gallery.setId(id);
+            return galleryRepository.save(gallery);
+        }
+        return null;
     }
 
-    // Update an existing image by id
-    public Gallery updateGallery(ObjectId id, Gallery gallery) {
-        if (!galleryRepository.existsById(id)) {
-            throw new RuntimeException("Image not found with id " + id);
-        }
-        // Ensure the ID in the request body matches the ID in the URL
-        gallery.setId(id);
-        return galleryRepository.save(gallery);
-    }
-
-    // Delete an image by id
-    public void deleteGallery(ObjectId id) {
-        if (!galleryRepository.existsById(id)) {
-            throw new RuntimeException("Image not found with id " + id);
-        }
+    // Delete a gallery by ID
+    public void deleteGallery(String id) {
         galleryRepository.deleteById(id);
     }
 
-    // Find images by picture type
-    public List<Gallery> findByPictureType(String pictureType) {
-        return galleryRepository.findByPictureType(pictureType);
+    // Add an item to a gallery
+    public Gallery addItemToGallery(String galleryId, Item item) {
+        Optional<Gallery> galleryOpt = galleryRepository.findById(galleryId);
+        if (galleryOpt.isPresent()) {
+            Gallery gallery = galleryOpt.get();
+            gallery.getImages().add(item);
+            return galleryRepository.save(gallery);
+        }
+        return null;
+    }
+
+    // Update an item in a gallery
+    public Gallery updateItemInGallery(String galleryId, String itemId, Item newItem) {
+        Optional<Gallery> galleryOpt = galleryRepository.findById(galleryId);
+        if (galleryOpt.isPresent()) {
+            Gallery gallery = galleryOpt.get();
+            List<Item> items = gallery.getImages();
+            for (int i = 0; i < items.size(); i++) {
+                if (items.get(i).getId().equals(itemId)) {
+                    items.set(i, newItem);
+                    return galleryRepository.save(gallery);
+                }
+            }
+        }
+        return null;
+    }
+
+    // Delete an item from a gallery
+    public Gallery deleteItemFromGallery(String galleryId, String itemId) {
+        Optional<Gallery> galleryOpt = galleryRepository.findById(galleryId);
+        if (galleryOpt.isPresent()) {
+            Gallery gallery = galleryOpt.get();
+            List<Item> items = gallery.getImages();
+            items.removeIf(item -> item.getId().equals(itemId));
+            return galleryRepository.save(gallery);
+        }
+        return null;
     }
 }

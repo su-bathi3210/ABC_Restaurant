@@ -1,15 +1,15 @@
 package abc.example.abcResturant.Controller;
 
 import abc.example.abcResturant.Model.Gallery;
+import abc.example.abcResturant.Model.Gallery.Item;
 import abc.example.abcResturant.Service.GalleryService;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/gallery")
@@ -18,39 +18,84 @@ public class GalleryController {
     @Autowired
     private GalleryService galleryService;
 
+
+    // Get all galleries
     @GetMapping
-    public ResponseEntity<List<Gallery>> getAllGalleries(@RequestParam(required = false) String pictureType) {
-        List<Gallery> galleries;
-        if (pictureType == null || pictureType.isEmpty()) {
-            galleries = galleryService.allGallery();
-        } else {
-            galleries = galleryService.findByPictureType(pictureType);
+    public List<Gallery> getAllGalleries() {
+        return galleryService.getAllGalleries();
+    }
+
+    @GetMapping("/gallery")
+    public ResponseEntity<Map<String, Object>> getGalleryImagesByName(@RequestParam String name) {
+        Optional<Gallery> gallery = galleryService.getGalleryByName(name);
+        if (gallery.isPresent()) {
+            List<String> images = gallery.get().getImages().stream()
+                    .map(Gallery.Item::getImageData) // Assuming this gets the image URLs
+                    .collect(Collectors.toList());
+            Map<String, Object> response = new HashMap<>();
+            response.put("images", images);
+            return ResponseEntity.ok(response);
         }
-        return new ResponseEntity<>(galleries, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonMap("images", new ArrayList<>()));
     }
 
+    // Get a gallery by ID
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Gallery>> getSingleGallery(@PathVariable ObjectId id) {
-        return new ResponseEntity<>(galleryService.singleGallery(id), HttpStatus.OK);
+    public ResponseEntity<Gallery> getGalleryById(@PathVariable String id) {
+        Optional<Gallery> gallery = galleryService.getGalleryById(id);
+        return gallery.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    // Add a new gallery
     @PostMapping
-    public ResponseEntity<Gallery> addGallery(@RequestBody Gallery gallery) {
-        Gallery newGallery = galleryService.addGallery(gallery);
-        return new ResponseEntity<>(newGallery, HttpStatus.CREATED);
+    public Gallery addGallery(@RequestBody Gallery gallery) {
+        return galleryService.addGallery(gallery);
     }
 
-    // Update an existing image by id
+    // Update a gallery by ID
     @PutMapping("/{id}")
-    public ResponseEntity<Gallery> updateGallery(@PathVariable("id") ObjectId id, @RequestBody Gallery gallery) {
-        Gallery updateGallery = galleryService.updateGallery(id, gallery);
-        return ResponseEntity.ok(updateGallery);
+    public ResponseEntity<Gallery> updateGallery(@PathVariable String id, @RequestBody Gallery gallery) {
+        Gallery updatedGallery = galleryService.updateGallery(id, gallery);
+        if (updatedGallery != null) {
+            return ResponseEntity.ok(updatedGallery);
+        }
+        return ResponseEntity.notFound().build();
     }
 
-    // Delete a image by id
+    // Delete a gallery by ID
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteGallery(@PathVariable("id") ObjectId id) {
+    public ResponseEntity<Void> deleteGallery(@PathVariable String id) {
         galleryService.deleteGallery(id);
         return ResponseEntity.noContent().build();
+    }
+
+    // Add an item to a gallery
+    @PostMapping("/{galleryId}/item")
+    public ResponseEntity<Gallery> addItemToGallery(@PathVariable String galleryId, @RequestBody Item item) {
+        Gallery updatedGallery = galleryService.addItemToGallery(galleryId, item);
+        if (updatedGallery != null) {
+            return ResponseEntity.ok(updatedGallery);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    // Update an item in a gallery
+    @PutMapping("/{galleryId}/item/{itemId}")
+    public ResponseEntity<Gallery> updateItemInGallery(@PathVariable String galleryId, @PathVariable String itemId, @RequestBody Item item) {
+        Gallery updatedGallery = galleryService.updateItemInGallery(galleryId, itemId, item);
+        if (updatedGallery != null) {
+            return ResponseEntity.ok(updatedGallery);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    // Delete an item from a gallery
+    @DeleteMapping("/{galleryId}/item/{itemId}")
+    public ResponseEntity<Gallery> deleteItemFromGallery(@PathVariable String galleryId, @PathVariable String itemId) {
+        Gallery updatedGallery = galleryService.deleteItemFromGallery(galleryId, itemId);
+        if (updatedGallery != null) {
+            return ResponseEntity.ok(updatedGallery);
+        }
+        return ResponseEntity.notFound().build();
     }
 }

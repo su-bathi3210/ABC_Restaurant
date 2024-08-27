@@ -14,11 +14,11 @@ const Admin = () => {
           </Link>
           <ul className="admin-navbar-menu">
             <li><Link to="/admin" className="admin-navbar-item">Home</Link></li>
-            <li><Link to="/menu" className="admin-navbar-item">Menu</Link></li>
-            <li><Link to="/gallery" className="admin-navbar-item">Gallery</Link></li>
-            <li><Link to="/facility" className="admin-navbar-item">Facility</Link></li>
-            <li><Link to="/reservation" className="admin-navbar-item">Reservation</Link></li>
-            <li><Link to="/contact" className="admin-navbar-item">Contact</Link></li>
+            <li><Link to="/adminproduct" className="admin-navbar-item">Product</Link></li>
+            <li><Link to="/admin-gallery" className="admin-navbar-item">Gallery</Link></li>
+            <li><Link to="/admin-facility" className="admin-navbar-item">Facility</Link></li>
+            <li><Link to="" className="admin-navbar-item">Reservation</Link></li>
+            <li><Link to="" className="admin-navbar-item">Contact</Link></li>
           </ul>
         </div>
       </nav>

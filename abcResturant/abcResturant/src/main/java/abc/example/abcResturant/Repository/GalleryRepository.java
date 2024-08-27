@@ -1,10 +1,12 @@
 package abc.example.abcResturant.Repository;
 
 import abc.example.abcResturant.Model.Gallery;
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
-public interface GalleryRepository extends MongoRepository<Gallery, ObjectId> {
-    List<Gallery> findByPictureType(String pictureType);
+import java.util.Optional;
+
+@Repository
+public interface GalleryRepository extends MongoRepository<Gallery, String> {
+    Optional<Gallery> findByName(String name);
 }

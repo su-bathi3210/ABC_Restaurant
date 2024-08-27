@@ -1,17 +1,17 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import AdminMenu from './AdminMenu';
 import Admin from './Admin';
-import AdminReservation from './AdminReservation';
-import AdminFeedback from './AdminFeedback';
+import AdminFacility from './AdminFacility';
+import AdminGallery from './AdminGallery';
+
+
 
 function AdminRoutes() {
     return (
         <Routes>
             <Route path='/admin' element={<Admin />} />
-            <Route path='/adminmenu' element={<AdminMenu />} />
-            <Route path='/adminreservations' element={<AdminReservation />} />
-            <Route path='/adminfeedback' element={<AdminFeedback />} />
+            <Route path='/admin-facility' element={<AdminFacility/>} />
+            <Route path='/admin-gallery' element={<AdminGallery />} />
         </Routes>
     );
 }

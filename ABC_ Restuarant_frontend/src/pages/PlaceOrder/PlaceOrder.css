@@ -7,7 +7,7 @@
     align-items: start;
     justify-content: space-between;
     gap: 50px;
-    margin: 70px 200px; /* Added margin on both sides */
+    margin: -10px 200px; /* Added margin on both sides */
 }
 
 .place-order-left {
