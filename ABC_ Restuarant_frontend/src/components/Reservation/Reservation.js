@@ -9,7 +9,7 @@ import './Reservation.css';
 const tableSchema = yup.object().shape({
   name: yup.string().required('Name is required'),
   outlet: yup.string().required('Outlet is required'),
-  email: yup.string().email('Invalid email address').required('Email is required'),
+  username: yup.string().required('Username is required'),
   date: yup.date().required('Date is required'),
   time: yup.string().required('Time is required'),
   guests: yup.number().positive('Number of guests must be positive').required('Number of guests is required'),
@@ -17,7 +17,7 @@ const tableSchema = yup.object().shape({
 });
 
 
-const validateEmail = async (email) => {
+const validateUsername = async (username) => {
   return true;
 };
 
@@ -47,9 +47,10 @@ const Reservation = () => {
   });
 
   const onTableSubmit = async (data) => {
-    const isEmailValid = await validateEmail(data.email);
-    if (!isEmailValid) {
-      console.log('Email does not exist');
+    const isUsernameValid = await validateUsername(data.username);
+    if (!isUsernameValid) {
+      console.log('Username does not exist');
+
       return;
     }
 
@@ -66,7 +67,6 @@ const Reservation = () => {
     });
     setShowDialog(true);
   };
-
 
   const handleConfirm = async () => {
     setShowDialog(false);
@@ -88,12 +88,12 @@ const Reservation = () => {
   return (
     <div className="reservation-container">
       <form className="reservation-form" onSubmit={handleTableSubmit(onTableSubmit)}>
-        <h1>RESERVE  TABLE</h1>
+        <h1>RESERVE TABLE</h1>
 
         <div className="form-row">
           <div className="form-group">
             <label>Name:</label>
-            <input type="text" {...registerTable('name')} placeholder="Enter your name" />
+            <input type="text" {...registerTable('name')} placeholder="Enter Your Name" />
             {tableErrors.name && <p>{tableErrors.name.message}</p>}
           </div>
 
@@ -113,12 +113,11 @@ const Reservation = () => {
 
         <div className="form-row">
           <div className="form-group">
-            <label>Email:</label>
-            <input type="email" {...registerTable('email')} placeholder="Enter your email" />
-            {tableErrors.email && <p>{tableErrors.email.message}</p>}
+            <label>User Name:</label>
+            <input type="text" {...registerTable('username')} placeholder="Enter Your Username or Email" />
+            {tableErrors.username && <p>{tableErrors.username.message}</p>}
           </div>
         </div>
-
 
         <div className="form-row">
           <div className="form-group">
@@ -136,13 +135,13 @@ const Reservation = () => {
         <div className="form-row">
           <div className="form-group">
             <label>Number of Guests:</label>
-            <input type="number" {...registerTable('guests')} placeholder="Number of guests" />
+            <input type="number" {...registerTable('guests')} placeholder="Number of Guests" />
             {tableErrors.guests && <p>{tableErrors.guests.message}</p>}
           </div>
 
           <div className="form-group">
             <label>Contact Number:</label>
-            <input type="text" {...registerTable('contactNo')} placeholder="Enter contact number" />
+            <input type="text" {...registerTable('contactNo')} placeholder="Enter Contact Number" />
             {tableErrors.contactNo && <p>{tableErrors.contactNo.message}</p>}
           </div>
         </div>

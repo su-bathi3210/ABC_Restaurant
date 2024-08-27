@@ -58,7 +58,7 @@
 
 button {
   color: white;
-  background-color: black;
+  background-color: #4c5a23;
   text-decoration: none;
   padding: 10px 20px;
   border: 1px solid;
@@ -68,7 +68,7 @@ button {
 }
 
 button:hover {
-  background-color: tomato;
+  background-color: #600000;
 }
 
 .cart-button {

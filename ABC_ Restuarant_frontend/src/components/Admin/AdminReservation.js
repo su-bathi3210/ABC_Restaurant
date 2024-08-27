@@ -16,7 +16,7 @@ const AdminReservation = () => {
       .catch(error => {
         console.error('Error fetching table data:', error);
       });
-  }, []); // Ensure the useEffect dependency array is provided and correct
+  }, []); 
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value.toLowerCase());
