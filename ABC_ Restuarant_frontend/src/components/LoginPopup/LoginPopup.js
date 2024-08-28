@@ -25,7 +25,7 @@ const LoginPopup = ({ setShowLogin }) => {
       if (currState === "Login") {
         // Assuming the response includes a token or session identifier
         localStorage.setItem('adminSession', response.data.token); // Save token/session
-        navigate('/admin'); // Redirect to admin page upon successful login
+        navigate('/admin-navbar'); // Redirect to admin page upon successful login
       } else {
         setCurrState("Login"); // Redirect to login after successful sign-up
       }

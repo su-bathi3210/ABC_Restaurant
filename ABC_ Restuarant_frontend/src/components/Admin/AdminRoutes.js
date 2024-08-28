@@ -1,20 +1,38 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import Admin from './Admin';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import AdminFacility from './AdminFacility';
 import AdminGallery from './AdminGallery';
 import AdminReservation from './AdminReservation';
-
-
+import AdminNavbar from './AdminNavbar';
+import Admin from './Admin';
+import AdminProduct from './AdminProduct';
 
 function AdminRoutes() {
+    const location = useLocation();
+
+    
+    const navbarRoutes = [
+        '/admin',
+        '/admin-product',
+        '/admin-gallery',
+        '/admin-facility',
+        '/admin-reservation'
+    ];
+
     return (
-        <Routes>
-            <Route path='/admin' element={<Admin />} />
-            <Route path='/admin-facility' element={<AdminFacility/>} />
-            <Route path='/admin-gallery' element={<AdminGallery />} />
-            <Route path='/admin-reservation' element={<AdminReservation />} />
-        </Routes>
+        <>
+            {navbarRoutes.includes(location.pathname) && (
+                <AdminNavbar />
+            )}
+
+            <Routes>
+                <Route path='/admin' element={<Admin />} />
+                <Route path='/admin-facility' element={<AdminFacility />} />
+                <Route path='/admin-gallery' element={<AdminGallery />} />
+                <Route path='/admin-reservation' element={<AdminReservation />} />
+                <Route path='/admin-product' element={<AdminProduct />} />
+            </Routes>
+        </>
     );
 }
 
