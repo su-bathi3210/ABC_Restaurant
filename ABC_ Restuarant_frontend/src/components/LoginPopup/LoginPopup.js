@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
 import axios from 'axios';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './LoginPopup.css';
 import { assets } from '../../assets/assets';
+import './LoginPopup.css';
 
 const LoginPopup = ({ setShowLogin }) => {
   const [username, setUsername] = useState('');
@@ -25,7 +25,7 @@ const LoginPopup = ({ setShowLogin }) => {
       if (currState === "Login") {
         // Assuming the response includes a token or session identifier
         localStorage.setItem('adminSession', response.data.token); // Save token/session
-        navigate('/admin-navbar'); // Redirect to admin page upon successful login
+        navigate('/admin'); // Redirect to admin page upon successful login
       } else {
         setCurrState("Login"); // Redirect to login after successful sign-up
       }
