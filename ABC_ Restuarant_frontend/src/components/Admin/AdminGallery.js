@@ -130,20 +130,20 @@ const GalleryForm = () => {
     };
 
     return (
-        <div className="gallery-container">
+        <div className="admin-gallery">
             <h4>Gallery Management</h4>
 
             <div className="form-section">
                 <h5>Add Gallery</h5>
                 <form onSubmit={handleAddGallery} className="gallery-form">
                     <div className="form-group">
-                        <label>Gallery Name:</label>
                         <input
                             type="text"
                             value={galleryName}
                             onChange={(e) => setGalleryName(e.target.value)}
                             required
                             className="form-control"
+                            placeholder="Enter Gallery Name"
                         />
                     </div>
                     <button type="submit" className="btn btn-primary">Add Gallery</button>
@@ -155,7 +155,6 @@ const GalleryForm = () => {
                 <h3>Add Item to Gallery</h3>
                 <form onSubmit={handleAddItemToGallery} className="gallery-form">
                     <div className="form-group">
-                        <label>Select Gallery:</label>
                         <select
                             value={selectedGalleryId}
                             onChange={(e) => setSelectedGalleryId(e.target.value)}
@@ -171,7 +170,6 @@ const GalleryForm = () => {
                         </select>
                     </div>
                     <div className="form-group">
-                        <label>Select Image:</label>
                         <input
                             type="file"
                             accept="image/*"
