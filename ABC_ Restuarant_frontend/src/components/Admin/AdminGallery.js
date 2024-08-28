@@ -131,10 +131,10 @@ const GalleryForm = () => {
 
     return (
         <div className="gallery-container">
-            <h2>Gallery Management</h2>
+            <h4>Gallery Management</h4>
 
             <div className="form-section">
-                <h3>Add Gallery</h3>
+                <h5>Add Gallery</h5>
                 <form onSubmit={handleAddGallery} className="gallery-form">
                     <div className="form-group">
                         <label>Gallery Name:</label>
