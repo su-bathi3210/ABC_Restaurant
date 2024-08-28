@@ -105,6 +105,7 @@ const AdminFacility = () => {
     return (
         <div className="table-container">
             <h1>Facilities</h1>
+            <p>ABC Restaurant offers a range of top-notch facilities, including spacious seating areas, a well-equipped kitchen, clean restrooms, and accessible amenities to ensure a comfortable and enjoyable dining experience for all guests.</p>
             <button onClick={() => setIsAddModalOpen(true)} className="btn-add">Add New Facility</button>
 
             <table>
@@ -204,6 +205,11 @@ const AdminFacility = () => {
                     <button onClick={() => setIsEditModalOpen(false)}>Cancel</button>
                 </Modal>
             )}
+
+            <footer className="admin-about-footer">
+                <p>&copy; 2024 Our Restaurant. All Rights Reserved.</p>
+            </footer>
+
         </div>
     );
 };
