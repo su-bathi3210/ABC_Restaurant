@@ -112,8 +112,6 @@
 
 /* Admin Gallery */
 
-/* Admin Gallery */
-
 .admin-gallery {
     padding: 20px;
     max-width: 1200px;
@@ -122,7 +120,7 @@
 
 .admin-gallery h4 {
     font-size: 35px;
-    color: #4c5a23;
+    color: 	#e39533;
     transform: scale(1.05);
     transition: transform 0.3s ease;
     margin-top: -98px;
@@ -134,135 +132,168 @@
     transform: scale(1.1);
 }
 
-.form-section {
-    margin-bottom: 30px;
+.admin-gallery p {
+    font-size: 1.1vw;
+    line-height: 1.84;
+    font-weight: 500;
     text-align: center;
+    margin-top: -30px;
+    margin-bottom: 50px;
 }
 
-.admin-gallery h5 {
-    padding-bottom: 7px;
-    margin-bottom: 10px;
-    color: #d62e2e;
-    font-size: 25px;
+/* General Form Section Styling */
+.form-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 40px;
 }
 
-.admin-gallery h3 {
-    color: #d62e2e;
-    font-size: 25px;
-}
-
-.gallery-form {
-    background-color: #f9f9f9;
+.form-section {
+    flex: 1;
     padding: 20px;
+    border: 1px solid #ddd;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    max-width: 800px;
+    background-color: #f9f9f9;
 }
 
-.form-section .form-group {
+.form-section h5,
+.form-section h3 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-group {
     margin-bottom: 15px;
 }
 
-.form-control {
+.form-group input,
+.form-group select,
+.form-group textarea {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.form-group textarea {
+    resize: vertical;
 }
 
 .btn {
-    display: inline-block;
     padding: 10px 15px;
     border: none;
     border-radius: 4px;
-    color: #fff;
-    font-size: 16px;
     cursor: pointer;
-    text-align: center;
-    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
 }
 
 .btn-primary {
-    background-color: #600000;
-    margin-top: 15px;
-    margin-left: 10px;
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
 }
 
 .btn-success {
     background-color: #28a745;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #218838;
 }
 
 .btn-warning {
     background-color: #ffc107;
+    color: black;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
 }
 
 .btn-danger {
     background-color: #dc3545;
+    color: white;
 }
 
-.btn-secondary {
-    background-color: #6c757d;
+.btn-danger:hover {
+    background-color: #c82333;
 }
 
+/* Gallery Items Styling */
 .gallery-items {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    margin-top: 40px;
+}
+
+.item-list {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
     gap: 20px;
-    margin-top: 20px;
 }
 
 .item {
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 4px;
-    background-color: #fff;
-    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(25% - 20px);
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+.item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .item-image {
     width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 4px;
-    margin-bottom: 10px;
+    height: auto;
+    cursor: pointer;
 }
 
 .item-actions {
     display: flex;
-    justify-content: center;
-    gap: 10px;
+    justify-content: space-around;
+    width: 100%;
+    padding: 10px;
+    background-color: #f8f8f8;
+    border-top: 1px solid #ddd;
 }
 
-.modal {
-    padding: 20px;
-    max-width: 600px;
-    margin: auto;
-    background-color: #fff;
-    border-radius: 8px;
+/* Responsive Design */
+@media (max-width: 768px) {
+    .form-container {
+        flex-direction: column;
+    }
+
+    .item {
+        width: calc(50% - 20px);
+    }
 }
 
-.modal-overlay {
-    background-color: rgba(0, 0, 0, 0.5);
+@media (max-width: 480px) {
+    .item {
+        width: calc(100% - 20px);
+    }
 }
 
-.modal-content {
-    text-align: center;
-}
-
-.modal-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 20px;
-}
 
 
 
 
 /* Admin Facility */
 
-/* Container for the table */
 .table-container {
     padding: -20px;
     border-radius: 10px;
@@ -272,7 +303,7 @@
 
 .table-container h1 {
     font-size: 35px;
-    color: #d62e2e;
+    color: #600000;
     transform: scale(1.05);
     transition: transform 0.3s ease;
     margin-top: -80px;
@@ -293,7 +324,6 @@
     transform: scale(1.1);
 }
 
-/* Add button */
 .btn-add {
     display: block;
     margin: 0 auto 20px auto;
@@ -312,7 +342,6 @@
     background-color: #4c5a23;
 }
 
-/* Table styling */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -344,7 +373,6 @@ td {
     border-radius: 5px;
 }
 
-/* Edit and Delete buttons */
 .btn-edit,
 .btn-delete {
     padding: 8px 12px;
@@ -374,7 +402,6 @@ td {
     background-color: #555;
 }
 
-/* Modal styling */
 .Modal {
     position: absolute;
     top: 50%;
@@ -452,3 +479,37 @@ td {
     font-size: 0.9em;
     font-weight: 700;
 }
+
+
+/* Admin Reservation */
+
+.admin-table-container {
+    padding: -20px;
+    border-radius: 10px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.admin-table-container h6 {
+    font-size: 35px;
+    color: #d62e2e;
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+    margin-top: -80px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.admin-table-container p {
+    font-size: 1.1vw;
+    line-height: 1.84;
+    font-weight: 500;
+    text-align: center;
+    margin-top: -40px;
+    margin-bottom: 50px;
+}
+
+.admin-table-container h6:hover {
+    transform: scale(1.1);
+}
+

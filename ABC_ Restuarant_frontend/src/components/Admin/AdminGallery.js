@@ -131,56 +131,59 @@ const GalleryForm = () => {
 
     return (
         <div className="admin-gallery">
-            <h4>Gallery Management</h4>
+            <h4>Gallery</h4>
+            <p>The admin gallery management feature for the ABC Restaurant allows administrators to oversee and control the gallery section of the website. This feature enables the admin to add, update, or delete images displayed in the gallery, ensuring that the restaurant's visual content is always up-to-date and aligned with its branding. </p>
 
-            <div className="form-section">
-                <h5>Add Gallery</h5>
-                <form onSubmit={handleAddGallery} className="gallery-form">
-                    <div className="form-group">
-                        <input
-                            type="text"
-                            value={galleryName}
-                            onChange={(e) => setGalleryName(e.target.value)}
-                            required
-                            className="form-control"
-                            placeholder="Enter Gallery Name"
-                        />
-                    </div>
-                    <button type="submit" className="btn btn-primary">Add Gallery</button>
-                </form>
+            <div className="form-container">
+                <div className="form-section">
+                    <h5>Add Gallery</h5>
+                    <form onSubmit={handleAddGallery} className="gallery-form">
+                        <div className="form-group">
+                            <input
+                                type="text"
+                                value={galleryName}
+                                onChange={(e) => setGalleryName(e.target.value)}
+                                required
+                                className="form-control"
+                                placeholder="Enter Gallery Name"
+                            />
+                        </div>
+                        <button type="submit" className="btn btn-primary">Add Gallery</button>
+                    </form>
+                </div>
+
+                <div className="form-section">
+                    <h3>Add Item to Gallery</h3>
+                    <form onSubmit={handleAddItemToGallery} className="gallery-form">
+                        <div className="form-group">
+                            <select
+                                value={selectedGalleryId}
+                                onChange={(e) => setSelectedGalleryId(e.target.value)}
+                                required
+                                className="form-control"
+                            >
+                                <option value="">Select Gallery</option>
+                                {galleries.map((gallery) => (
+                                    <option key={gallery.id} value={gallery.id}>
+                                        {gallery.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="form-group">
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleFileChange}
+                                required
+                                className="form-control"
+                            />
+                        </div>
+                        <button type="submit" className="btn btn-primary">Add Item</button>
+                    </form>
+                </div>
             </div>
 
-
-            <div className="form-section">
-                <h3>Add Item to Gallery</h3>
-                <form onSubmit={handleAddItemToGallery} className="gallery-form">
-                    <div className="form-group">
-                        <select
-                            value={selectedGalleryId}
-                            onChange={(e) => setSelectedGalleryId(e.target.value)}
-                            required
-                            className="form-control"
-                        >
-                            <option value="">Select Gallery</option>
-                            {galleries.map((gallery) => (
-                                <option key={gallery.id} value={gallery.id}>
-                                    {gallery.name}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                    <div className="form-group">
-                        <input
-                            type="file"
-                            accept="image/*"
-                            onChange={handleFileChange}
-                            required
-                            className="form-control"
-                        />
-                    </div>
-                    <button type="submit" className="btn btn-primary">Add Item</button>
-                </form>
-            </div>
 
 
             {selectedItem && (

@@ -47,14 +47,22 @@ const Reservation = () => {
   });
 
   const onTableSubmit = async (data) => {
+    // Format the date to only include YYYY-MM-DD
+    const formattedDate = new Date(data.date).toISOString().split('T')[0];
+
+    // Update data with formatted date
+    const tableData = {
+      ...data,
+      date: formattedDate, // Use only the date part
+      status: 'pending'
+    };
+
     const isUsernameValid = await validateUsername(data.username);
     if (!isUsernameValid) {
       console.log('Username does not exist');
-
       return;
     }
 
-    const tableData = { ...data, status: 'pending' };
     setDialogMessage('Are you sure you want to submit the table reservation?');
     setSubmitHandler(() => async () => {
       try {
@@ -67,6 +75,7 @@ const Reservation = () => {
     });
     setShowDialog(true);
   };
+
 
   const handleConfirm = async () => {
     setShowDialog(false);
