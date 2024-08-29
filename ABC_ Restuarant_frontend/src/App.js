@@ -13,6 +13,7 @@ import Cart from './pages/Cart/Cart';
 import Home from './pages/Home/Home';
 import PlaceOrder from './pages/PlaceOrder/PlaceOrder';
 import Facility from './components/Facility/Facility';
+import StaffRoutes from './components/Staff/StaffRoutes';
 
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
   const shouldShowFooter = location.pathname === '/';
 
 
-  const shouldShowNavbar = !location.pathname.startsWith('/admin');
+  const shouldShowNavbar = !location.pathname.startsWith('/admin') && !location.pathname.startsWith('/staff');
 
   const [showLogin, setShowLogin] = useState(false);
 
@@ -42,6 +43,7 @@ function App() {
           <Route path='/order' element={<PlaceOrder />} />
         </Routes>
         <AdminRoutes />
+        <StaffRoutes />
       </div>
       {shouldShowFooter && <Footer />}
     </>

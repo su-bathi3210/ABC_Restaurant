@@ -120,7 +120,7 @@
 
 .admin-gallery h4 {
     font-size: 35px;
-    color: 	#e39533;
+    color: #e39533;
     transform: scale(1.05);
     transition: transform 0.3s ease;
     margin-top: -98px;
@@ -179,7 +179,7 @@
     font-size: 14px;
 }
 
-.form-group input{
+.form-group input {
     margin-top: 4px;
 }
 
@@ -209,29 +209,27 @@
 
 .btn-success {
     background-color: tomato;
-    color: white;
 }
 
 .btn-success:hover {
-    background-color: #218838;
+    background-color: black;
 }
 
 .btn-warning {
-    background-color: #ffc107;
-    color: black;
+    background-color: #600000;
+
 }
 
 .btn-warning:hover {
-    background-color: #e0a800;
+    background-color: #555;
 }
 
 .btn-danger {
-    background-color: #dc3545;
-    color: white;
+    background-color: #4c5a23;
 }
 
 .btn-danger:hover {
-    background-color: #c82333;
+    background-color: #555;
 }
 
 /* Gallery Items Styling */
@@ -249,6 +247,8 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    justify-content: space-between;
+    margin-top: 25px;
 }
 
 .item {
@@ -270,7 +270,8 @@
 
 .item-image {
     width: 100%;
-    height: auto;
+    height: 200px;
+    object-fit: cover;
     cursor: pointer;
 }
 
@@ -283,7 +284,86 @@
     border-top: 1px solid #ddd;
 }
 
-/* Responsive Design */
+.modal-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    width: 90%;
+    max-width: 600px;
+    margin: auto;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal h2 {
+    margin-top: 0;
+}
+
+.modal-content {
+    margin-bottom: 20px;
+}
+
+.modal .btn {
+    margin-top: 10px;
+}
+
+.modal .btn-secondary {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #f1f1f1;
+    color: #555;
+}
+
+.modal .form-group {
+    margin-bottom: 15px;
+}
+
+.modal .form-control {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.modal .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+}
+
+.modal .btn-success {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+}
+
+.modal .btn-warning {
+    background-color: #ffc107;
+    color: #212529;
+    border: none;
+}
+
+.modal .btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+}
+
+
 @media (max-width: 768px) {
     .form-container {
         flex-direction: column;
@@ -524,4 +604,3 @@ td {
 .admin-table-container h6:hover {
     transform: scale(1.1);
 }
-

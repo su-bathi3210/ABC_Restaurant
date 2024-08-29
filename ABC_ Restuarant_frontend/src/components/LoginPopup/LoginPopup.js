@@ -17,23 +17,23 @@ const LoginPopup = ({ setShowLogin }) => {
 
     // Differentiate between Login and Sign Up actions
     const url = currState === "Login" ? '/user/login/admin' : '/user/signup/admin';
-    
+
     axios.post(url, null, {
       params: { username, password }
     })
-    .then(response => {
-      if (currState === "Login") {
-        // Assuming the response includes a token or session identifier
-        localStorage.setItem('adminSession', response.data.token); // Save token/session
-        navigate('/admin'); // Redirect to admin page upon successful login
-      } else {
-        setCurrState("Login"); // Redirect to login after successful sign-up
-      }
-    })
-    .catch(error => {
-      setError('Invalid credentials');
-      console.error('Login/Sign-up error:', error);
-    });
+      .then(response => {
+        if (currState === "Login") {
+          // Assuming the response includes a token or session identifier
+          localStorage.setItem('adminSession', response.data.token); // Save token/session
+          navigate('/admin'); // Redirect to admin page upon successful login
+        } else {
+          setCurrState("Login"); // Redirect to login after successful sign-up
+        }
+      })
+      .catch(error => {
+        setError('Invalid credentials');
+        console.error('Login/Sign-up error:', error);
+      });
   };
 
   return (
@@ -45,11 +45,11 @@ const LoginPopup = ({ setShowLogin }) => {
         </div>
         <div className='login-popup-inputs'>
           {currState === "Sign Up" && (
-            <input 
-              type='text' 
-              placeholder='Your Name' 
-              required 
-              onChange={(e) => setUsername(e.target.value)} 
+            <input
+              type='text'
+              placeholder='Your Name'
+              required
+              onChange={(e) => setUsername(e.target.value)}
             />
           )}
           <input
@@ -72,7 +72,7 @@ const LoginPopup = ({ setShowLogin }) => {
           <p>By Continuing, I Agree to the Terms of Use & Privacy Policy.</p>
         </div>
         <button type="submit">{currState === "Sign Up" ? "Create Account" : "Login"}</button>
-        
+
         {error && <p className="error-message">{error}</p>}
 
         {currState === "Login"

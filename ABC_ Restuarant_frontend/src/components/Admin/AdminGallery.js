@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import './Admin.css';
 
@@ -92,6 +92,7 @@ const GalleryForm = () => {
                 alert('Failed to update item');
             }
         }
+        closeModal();
     };
 
     const handleDeleteItem = async (itemId) => {
@@ -123,7 +124,7 @@ const GalleryForm = () => {
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
-                setImageData(reader.result.split(',')[1]);
+                setSelectedItem({ ...selectedItem, imageData: reader.result.split(',')[1] });
             };
             reader.readAsDataURL(file);
         }
@@ -185,28 +186,6 @@ const GalleryForm = () => {
                 </div>
             </div>
 
-
-
-            {selectedItem && (
-                <div className="form-section">
-                    <h3>Edit Item</h3>
-                    <form onSubmit={handleEditItem} className="gallery-form">
-                        <div className="form-group">
-                            <label>Image Data (base64):</label>
-                            <textarea
-                                value={selectedItem.imageData}
-                                onChange={(e) => setSelectedItem({ ...selectedItem, imageData: e.target.value })}
-                                required
-                                className="form-control"
-                                rows="4"
-                            />
-                        </div>
-                        <button type="submit" className="btn btn-success">Update Item</button>
-                    </form>
-                </div>
-            )}
-
-
             <div className="gallery-items">
                 <h3>Items in Gallery</h3>
                 <ul className="item-list">
@@ -227,26 +206,46 @@ const GalleryForm = () => {
                 </ul>
             </div>
 
-
             <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={closeModal}
-                contentLabel="Item Details"
+                contentLabel="Edit Item"
                 ariaHideApp={false}
                 className="modal"
                 overlayClassName="modal-overlay"
             >
-                <h2>Item Details</h2>
+                <h2>Edit Item</h2>
                 {selectedItem && (
-                    <div className="modal-content">
-                        <img
-                            src={`data:image/jpeg;base64,${selectedItem.imageData}`}
-                            alt="Selected item"
-                            className="modal-image"
-                        />
-                        <button onClick={closeModal} className="btn btn-secondary">Close</button>
-                    </div>
+                    <form onSubmit={handleEditItem} className="gallery-form">
+                        <div className="form-group">
+                            <label>Select Gallery:</label>
+                            <select
+                                value={selectedGalleryId}
+                                onChange={(e) => setSelectedGalleryId(e.target.value)}
+                                required
+                                className="form-control"
+                            >
+                                <option value="">Select Gallery</option>
+                                {galleries.map((gallery) => (
+                                    <option key={gallery.id} value={gallery.id}>
+                                        {gallery.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="form-group">
+                            <label>Change Image:</label>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleFileChange}
+                                className="form-control"
+                            />
+                        </div>
+                        <button type="submit" className="btn btn-success">Update Item</button>
+                    </form>
                 )}
+                <button onClick={closeModal} className="btn btn-secondary">Close</button>
             </Modal>
         </div>
     );
