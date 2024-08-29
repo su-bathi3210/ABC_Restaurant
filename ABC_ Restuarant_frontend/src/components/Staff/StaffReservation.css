@@ -1,0 +1,89 @@
+.staff-reservation-container {
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 1260px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.staff-reservation-container h1 {
+    font-size: 35px;
+    color: #600000;
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+    margin-top: -100px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.staff-reservation-container p {
+    font-size: 1.1vw;
+    line-height: 1.84;
+    font-weight: 500;
+    text-align: center;
+    margin-top: -40px;
+    margin-bottom: 50px;
+}
+
+.staff-reservation-container h1:hover {
+    transform: scale(1.1);
+}
+
+
+/* StaffReservation.css */
+
+.open-popup-button {
+    margin: 20px 0;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.popup-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.popup-container button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.popup-container button:last-child {
+    background-color: #f44336;
+    color: white;
+}
+
+.popup-container button:first-child {
+    background-color: #007bff;
+    color: white;
+}
