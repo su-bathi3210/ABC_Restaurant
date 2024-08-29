@@ -170,6 +170,7 @@ const GalleryForm = () => {
                                 ))}
                             </select>
                         </div>
+
                         <div className="form-group">
                             <input
                                 type="file"
