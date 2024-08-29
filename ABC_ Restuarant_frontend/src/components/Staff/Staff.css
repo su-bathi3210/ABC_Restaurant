@@ -1,0 +1,113 @@
+* {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+
+/*Staff Navbar*/
+
+.staff-navbar {
+    padding: 45px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.staff-navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    margin-left: 164px;
+}
+
+.staff-logo-image {
+    width: 250px;
+    height: 250px;
+    margin-bottom: 20px;
+    margin-top: -85px;
+    margin-left: -70px;
+}
+
+.staff-navbar-menu {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    flex: 2;
+    justify-content: center;
+    margin-top: -130px;
+    margin-left: -53px;
+}
+
+.staff-navbar-item {
+    color: black;
+    text-decoration: none;
+    padding: 25px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.staff-navbar-item:hover {
+    background-color: #575757;
+    border-radius: 4px;
+    padding: 10px 20px;
+}
+
+@media (max-width: 768px) {
+    .staff-navbar-menu {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .staff-navbar-menu.active {
+        display: flex;
+    }
+}
+
+
+
+/*Admin Header*/
+
+.staff-header {
+    height: 34vw;
+    margin: 30px auto;
+    background-image: url('../Header/header_img.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    top: -145px;
+}
+
+.staff-header-contents {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 1.5vw;
+    max-width: 50%;
+    bottom: 15.8%;
+    left: 15vw;
+    animation: fadeIn 3s;
+}
+
+.staff-header-contents h2 {
+    font-weight: 500;
+    color: white;
+    font-size: max(4.5vw, 22px);
+    line-height: 1.25;
+}
+
+.staff-header-contents p {
+    color: white;
+    font-size: 1vw;
+    line-height: 1.84;
+    font-weight: 500;
+}
+
+
+
+/*Staff Reservation*/
