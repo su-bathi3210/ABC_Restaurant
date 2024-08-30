@@ -18,7 +18,7 @@ const AdminNavbar = ({ setShowLogin }) => {
           <li><Link to="/admin-facility" className="admin-navbar-item">Facility</Link></li>
           <li><Link to="/admin-reservation" className="admin-navbar-item">Reservation</Link></li>
           <li><Link to="/admin-user" className="admin-navbar-item">Users</Link></li>
-          <li><Link to="/admin-other" className="admin-navbar-item">Other</Link></li>
+          <li><Link to="/admin-feedback" className="admin-navbar-item">Feedback</Link></li>
         </ul>
 
         <div className="navbar-auth">

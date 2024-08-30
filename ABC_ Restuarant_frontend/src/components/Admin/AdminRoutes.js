@@ -6,7 +6,7 @@ import AdminReservation from './AdminReservation';
 import AdminNavbar from './AdminNavbar';
 import Admin from './Admin';
 import AdminProduct from './AdminProduct';
-import AdminUser from './AdminUser';
+import AdminFeedback from './AdminFeedback';
 
 function AdminRoutes() {
     const location = useLocation();
@@ -18,7 +18,7 @@ function AdminRoutes() {
         '/admin-gallery',
         '/admin-facility',
         '/admin-reservation',
-        '/admin-user'
+        '/admin-feedback'
     ];
 
     return (
@@ -33,7 +33,7 @@ function AdminRoutes() {
                 <Route path='/admin-gallery' element={<AdminGallery />} />
                 <Route path='/admin-reservation' element={<AdminReservation />} />
                 <Route path='/admin-product' element={<AdminProduct />} />
-                <Route path='/admin-user' element={<AdminUser />} />
+                <Route path='/admin-feedback' element={<AdminFeedback />} />
             </Routes>
         </>
     );
