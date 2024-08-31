@@ -151,3 +151,65 @@ body {
       font-size: 16px;
   }
 }
+
+.image-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+}
+
+.image-row img {
+  width: 100%;
+  max-width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.about-footer {
+  text-align: center;
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+.about-footer p {
+  font-size: 0.9em;
+  font-weight: 700;
+}
+
+
+/* General container for the rating component */
+.rating-container {
+  width: 95%; /* Adjust width to fit on the right side */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+/* Style for the rating stars */
+.rating-container .react-stars svg {
+  width: 30px;
+  height: 30px;
+  fill: #ccc; /* Default star color */
+  transition: fill 0.3s ease-in-out;
+}
+
+/* Style when hovering over stars */
+.rating-container .react-stars svg:hover,
+.rating-container .react-stars svg:hover ~ svg {
+  fill: #ffdd57; /* Star color when hovered */
+}
+
+/* Style for the selected (active) stars */
+.rating-container .react-stars svg.active {
+  fill: #ffd700; /* Active star color (e.g., gold) */
+}
+
+/* Adjusting the layout and spacing */
+.rating-container label {
+  font-size: 20px;
+  font-weight: bold;
+}

@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Feedback {
     @Id
     private String feedbackId;
+    private String name;
     private String customerName;
     private String email;
     private long phoneNumber;

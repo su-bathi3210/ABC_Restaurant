@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import AOS from 'aos';
+import ReactStars from 'react-rating-stars-component'; // Import the star rating component
 
 const Feedback = () => {
     const [feedback, setFeedback] = useState({
@@ -9,11 +10,11 @@ const Feedback = () => {
         email: '',
         phoneNumber: '',
         subject: '',
-        message: ''
+        message: '',
+        rating: 0 // Add a rating state
     });
     const [errors, setErrors] = useState({});
 
-    // Correctly importing and using useEffect to initialize AOS
     useEffect(() => {
         AOS.init({ duration: 2000 });
     }, []);
@@ -33,12 +34,17 @@ const Feedback = () => {
         }
         if (!feedback.subject) errors.subject = "Subject is required";
         if (!feedback.message) errors.message = "Message is required";
+        if (!feedback.rating || feedback.rating < 1) errors.rating = "Please provide a rating";
         return errors;
     };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFeedback({ ...feedback, [name]: value });
+    };
+
+    const handleRatingChange = (newRating) => {
+        setFeedback({ ...feedback, rating: newRating });
     };
 
     const handleSubmit = (e) => {
@@ -61,7 +67,8 @@ const Feedback = () => {
                         email: '',
                         phoneNumber: '',
                         subject: '',
-                        message: ''
+                        message: '',
+                        rating: 0
                     });
                     setErrors({});
                 })
@@ -157,9 +164,23 @@ const Feedback = () => {
                     </div>
                 </div>
 
-                <button type="submit" className="btn btn-primary-submit">Submit your Feedback</button>
+                <div className="rating-container">
+                    <label>Rating</label>
+                    <ReactStars
+                        count={5}
+                        value={feedback.rating}
+                        onChange={handleRatingChange}
+                        size={30}
+                        activeColor="#ffd700"
+                    />
+                    {errors.rating && <div className="invalid-feedback">{errors.rating}</div>}
+                </div>
+
+                <button type="submit" className="btn-primary-submit">Submit your Feedback</button>
             </form>
         </div>
+
+
     );
 };
 
