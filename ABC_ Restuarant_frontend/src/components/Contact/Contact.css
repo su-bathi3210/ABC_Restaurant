@@ -1,122 +1,153 @@
-* {
+body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: #555;
 }
 
-.contact-container {
-  padding: 2rem;
-  max-width: 1000px;
-  margin: 0 auto;
-  max-width: 1200px;
+.contact-page-container {
+  padding: 50px;
+  margin: 0 100px;
 }
 
-.contact-container h1 {
+.contact-heading {
   font-size: 35px;
-  color: tomato;
+  color: #e39533;
   transform: scale(1.05);
   transition: transform 0.3s ease;
-  margin-top: -113px;
+  margin-top: -130px;
   text-align: center;
 }
 
-.contact-container h1:hover {
+.contact-heading:hover {
   transform: scale(1.1);
 }
 
-.contact-container p {
-  color: #262626;
+.contact-paragraph {
   font-size: 1.1vw;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   line-height: 1.84;
   font-weight: 500;
   text-align: center;
-  margin-top: 24px;
+  width: 1200px;
+  margin-top: 18px;
+  margin-bottom: 50px;
 }
 
 .contact-content {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 2rem;
-  margin-top: 60px;
+  align-items: flex-start;
+  margin: 0 5%;
 }
 
-.contact-box {
+.contact-info {
   width: 35%;
+  margin-right: 5%;
+}
+
+.location,
+.working-hours {
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  background-color: gray;
-  text-align: center;
-  transform: scale(1.05);
-  transition: transform 0.3s ease;
-}
-
-.contact-box:hover {
-  transform: scale(1.1);
-}
-
-.contact-box h2 {
-  color: black;
-  font-size: 28px;
-  font-weight: 700;
+  background-color: #f8e0d5;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
   margin-bottom: 20px;
 }
 
-.contact-box p {
-  margin: 0.5rem 0;
-  color: white;
+.location h2,
+.working-hours h2 {
+  font-size: 25px;
+  margin-bottom: 20px;
+  color: #d62e2e;
+  text-align: center;
 }
 
-.feedback-form {
-  max-width: 480px;
-  margin: 45px auto;
+.location p,
+.working-hours p {
+  font-size: 17px;
+  text-align: center;
+  font-weight: 600;
+  line-height: 1.8;
+}
+
+.feedback-form-section {
+  width: 52%;
+  background-color: #fff;
   padding: 30px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
-  border-radius: 8px;
-  margin-top: 100px;
+  box-shadow: 0px 0px 10px rgba(1, 1, 1, 0.5);
+  border-radius: 10px;
+  margin-left: 100px;
+  margin-right: auto;
+  margin-top: -1px;
 }
 
-.feedback-form h2 {
-  color: #4c5a23;
-  margin-bottom: 20px;
+.form-head {
   text-align: center;
-  font-size: 28px;
+  color: #4c5a23;
+  font-size: 29px;
+  margin-bottom: 25px;
+  margin-top: 5px;
+  text-transform: uppercase;
 }
 
-.feedback-form input,
-.feedback-form textarea {
-  width: 100%;
-  max-width: 460px;
-  padding: 0.5rem;
-  margin: 0.5rem 0;
-  border: 1px solid #ccc;
+.form-control {
+  border: 1px solid #ddd;
   border-radius: 4px;
+  font-size: 14px;
+  padding: 10px;
+  width: 500px;
+  transition: all 0.3s ease-in-out;
+  margin-bottom: 10px;
 }
 
-.feedback-form button {
-  padding: 0.7rem 1.5rem;
-  border: none;
+.form-control:focus {
+  border-color: tomato;
+}
+
+.invalid-feedback {
+  color: #e74c3c;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.btn-primary-submit {
+  width: 50%;
+  padding: 12px 15px;
   background-color: tomato;
-  color: #fff;
+  border: none;
   border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
+  color: white;
+  font-size: 16px;
+  margin-left: 120px;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
 }
 
-.feedback-form button:hover {
+.btn-primary-submit:hover {
   background-color: #555;
 }
 
-.about-footer {
-  text-align: center;
-  margin-top: 40px;
-  padding: 20px;
-  background-color: #f8f9fa;
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
 }
 
-.about-footer p {
-  font-size: 0.9em;
-  color: #7f8c8d;
-  font-weight: 700;
+.mt-3 {
+  margin-top: 1rem !important;
+}
+
+@media (max-width: 768px) {
+  .container {
+      padding: 15px;
+  }
+
+  .form-head {
+      font-size: 24px;
+  }
+
+  .form-control {
+      font-size: 14px;
+  }
+
+  .btn-primary-submit {
+      font-size: 16px;
+  }
 }
