@@ -1,77 +1,185 @@
-import React, { useState } from 'react';
-import './Contact.css';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import AOS from 'aos';
 
-const Contact = () => {
-  const [feedback, setFeedback] = useState('');
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+const FeedbackForm = () => {
+    const [feedback, setFeedback] = useState({
+        name: '',
+        email: '',
+        phoneNumber: '',
+        subject: '',
+        message: ''
+    });
+    const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission logic
-    console.log('Feedback Submitted:', { name, email, feedback });
-  };
+    // Correctly importing and using useEffect to initialize AOS
+    useEffect(() => {
+        AOS.init({ duration: 2000 });
+    }, []);
 
-  return (
-    <div className="contact-container">
-      <h1>Contact Us</h1>
-      <p>We’d love to hear from you! Whether you have a question about our menu, want to make a reservation, or need more information about our services, we’re here to help. At ABC Restaurant, we value your feedback and are committed to ensuring a memorable dining experience. Please use the form below to get in touch with us, or reach out directly via phone or email. We look forward to serving you!</p>
+    const validate = () => {
+        const errors = {};
+        if (!feedback.name) errors.name = "Name is required";
+        if (!feedback.email) {
+            errors.email = "Email is required";
+        } else if (!/\S+@\S+\.\S+/.test(feedback.email)) {
+            errors.email = "Email is invalid";
+        }
+        if (!feedback.phoneNumber) {
+            errors.phoneNumber = "Phone number is required";
+        } else if (!/^\d+$/.test(feedback.phoneNumber)) {
+            errors.phoneNumber = "Phone number must be digits only";
+        }
+        if (!feedback.subject) errors.subject = "Subject is required";
+        if (!feedback.message) errors.message = "Message is required";
+        return errors;
+    };
 
-      <div className="contact-content">
-        <div className="contact-box">
-          <h2>Our Location</h2>
-          <p>123 Restaurant St., Bambalapitiya, Colombo</p>
-          <p>Phone: (123) 456-7890</p>
-          <p>Email: abc@restaurant.com</p>
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFeedback({ ...feedback, [name]: value });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const validationErrors = validate();
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
+        } else {
+            setLoading(true);
+            axios.post('/feedback', feedback)
+                .then(response => {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Feedback submitted successfully!',
+                        icon: 'success',
+                        timer: 2500,
+                        showConfirmButton: false
+                    });
+                    setFeedback({
+                        name: '',
+                        email: '',
+                        phoneNumber: '',
+                        subject: '',
+                        message: ''
+                    });
+                    setErrors({});
+                })
+                .catch(error => {
+                    console.error('Error submitting feedback:', error);
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Error submitting feedback',
+                        icon: 'error',
+                        timer: 2500,
+                        showConfirmButton: false
+                    });
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
+        }
+    };
+
+    return (
+        <div className="container mt-5" data-aos="fade-up">
+            <h1 className="form-head">SEND US YOUR FEEDBACK</h1>
+            {loading ? (
+                <div className="d-flex flex-column justify-content-center align-items-center" style={{ minHeight: '80vh' }}>
+                    <div className="spinner-border text-primary" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
+                    <p className="mt-3" style={{ color: 'white', fontSize: 20 }}>Sending your feedback. Please wait...</p>
+                </div>
+            ) : (
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-3 row">
+                        <label htmlFor="name" className="col-sm-2 col-form-label">Your Name</label>
+                        <div className="col-sm-10">
+                            <input
+                                type="text"
+                                className={`form-control ${errors.name ? 'is-invalid' : ''}`}
+                                id="name"
+                                name="name"
+                                value={feedback.name}
+                                onChange={handleChange}
+                                placeholder="Enter your Name"
+                            />
+                            {errors.name && <div className="invalid-feedback">{errors.name}</div>}
+                        </div>
+                    </div>
+
+                    <div className="mb-3 row">
+                        <label htmlFor="email" className="col-sm-2 col-form-label">Your Email</label>
+                        <div className="col-sm-10">
+                            <input
+                                type="text"
+                                className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+                                id="email"
+                                name="email"
+                                value={feedback.email}
+                                onChange={handleChange}
+                                placeholder="Enter your Email"
+                            />
+                            {errors.email && <div className="invalid-feedback">{errors.email}</div>}
+                        </div>
+                    </div>
+
+                    <div className="mb-3 row">
+                        <label htmlFor="phoneNumber" className="col-sm-2 col-form-label">Phone Number</label>
+                        <div className="col-sm-10">
+                            <input
+                                type="text"
+                                className={`form-control ${errors.phoneNumber ? 'is-invalid' : ''}`}
+                                id="phoneNumber"
+                                name="phoneNumber"
+                                value={feedback.phoneNumber}
+                                onChange={handleChange}
+                                placeholder="Enter your Contact Number"
+                            />
+                            {errors.phoneNumber && <div className="invalid-feedback">{errors.phoneNumber}</div>}
+                        </div>
+                    </div>
+
+                    <div className="mb-3 row">
+                        <label htmlFor="subject" className="col-sm-2 col-form-label">Subject</label>
+                        <div className="col-sm-10">
+                            <input
+                                type="text"
+                                className={`form-control ${errors.subject ? 'is-invalid' : ''}`}
+                                id="subject"
+                                name="subject"
+                                value={feedback.subject}
+                                onChange={handleChange}
+                                placeholder="Enter Subject"
+                            />
+                            {errors.subject && <div className="invalid-feedback">{errors.subject}</div>}
+                        </div>
+                    </div>
+
+                    <div className="mb-3 row">
+                        <label htmlFor="message" className="col-sm-2 col-form-label">Enter your Message</label>
+                        <div className="col-sm-10">
+                            <textarea
+                                className={`form-control ${errors.message ? 'is-invalid' : ''}`}
+                                id="message"
+                                name="message"
+                                value={feedback.message}
+                                onChange={handleChange}
+                                rows="4"
+                                placeholder="Enter your message..."
+                            ></textarea>
+                            {errors.message && <div className="invalid-feedback">{errors.message}</div>}
+                        </div>
+                    </div>
+
+                    <button type="submit" className="btn btn-primary-submit">Submit your Feedback</button>
+                </form>
+            )}
         </div>
-
-        <div className="contact-box">
-          <h2>Working Hours</h2>
-          <p>Monday - Friday: 11:00 AM - 10:00 PM</p>
-          <p>Saturday - Sunday: 9:00 AM - 11:00 PM</p>
-        </div>
-      </div>
-
-      <div className="feedback-form">
-        <h2>Send Us Your Feedback</h2>
-        <form onSubmit={handleSubmit}>
-
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Enter your name"
-            required
-          /> <br></br>
-
-
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email"
-            required
-          /> <br></br>
-
-
-          <textarea
-            id="feedback"
-            value={feedback}
-            onChange={(e) => setFeedback(e.target.value)}
-            placeholder="Share your feedback with us"
-            required
-          ></textarea> <br></br>
-
-          <button type="submit">Submit</button>
-        </form>
-      </div>
-      <footer className="about-footer">
-                <p>&copy; 2024 Our Restaurant. All Rights Reserved.</p>
-            </footer>
-    </div>
-  );
+    );
 };
 
-export default Contact;
+export default FeedbackForm;
