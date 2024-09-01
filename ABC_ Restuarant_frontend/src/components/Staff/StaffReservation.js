@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './StaffReservation.css'; // Assuming you have a CSS file for styling
+import './Staff.css';
 
 const StaffReservation = () => {
     const [tables, setTables] = useState([]);
-    const [editingTable, setEditingTable] = useState(null); // Store the table being edited
-    const [showEditPopup, setShowEditPopup] = useState(false); // Control edit popup visibility
-    const [showAddPopup, setShowAddPopup] = useState(false); // Control add popup visibility
+    const [editingTable, setEditingTable] = useState(null);
+    const [showEditPopup, setShowEditPopup] = useState(false);
+    const [showAddPopup, setShowAddPopup] = useState(false);
     const [newReservationData, setNewReservationData] = useState({
         name: '',
         contactNo: '',
@@ -16,7 +16,7 @@ const StaffReservation = () => {
         guests: '',
         outlet: '',
         tableNo: '',
-        status: 'Pending' // Default status for a new reservation
+        status: 'Pending'
     });
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -34,8 +34,8 @@ const StaffReservation = () => {
     };
 
     const handleEdit = (table) => {
-        setEditingTable({ ...table }); // Clone the table data to avoid mutating state directly
-        setShowEditPopup(true); // Show the edit popup
+        setEditingTable({ ...table });
+        setShowEditPopup(true);
     };
 
     const handleUpdate = () => {
@@ -47,7 +47,7 @@ const StaffReservation = () => {
                     )
                 );
                 setEditingTable(null);
-                setShowEditPopup(false); // Hide the edit popup after updating
+                setShowEditPopup(false);
             })
             .catch(error => console.error('Error updating table:', error));
     };
@@ -68,14 +68,14 @@ const StaffReservation = () => {
     };
 
     const handleAddNewReservation = () => {
-        setShowAddPopup(true); // Show the add popup
+        setShowAddPopup(true);
     };
 
     const handleCreateReservation = () => {
         axios.post('/table', newReservationData)
             .then(response => {
-                setTables([response.data, ...tables]); // Add the new reservation to the list
-                setShowAddPopup(false); // Hide the add popup after creating
+                setTables([response.data, ...tables]);
+                setShowAddPopup(false);
                 setNewReservationData({
                     name: '',
                     contactNo: '',
@@ -139,7 +139,7 @@ const StaffReservation = () => {
                         <th>Time</th>
                         <th>Guests</th>
                         <th>Outlet</th>
-                        <th>Table No</th>
+                        <th>T.No</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -165,7 +165,7 @@ const StaffReservation = () => {
                 </tbody>
             </table>
 
-            {/* Popup for editing an existing reservation */}
+
             {showEditPopup && (
                 <div className="popup-overlay">
                     <div className="popup-container">
@@ -243,7 +243,7 @@ const StaffReservation = () => {
                 </div>
             )}
 
-            {/* Popup for adding a new reservation */}
+
             {showAddPopup && (
                 <div className="popup-overlay">
                     <div className="popup-container">
@@ -320,6 +320,10 @@ const StaffReservation = () => {
                     </div>
                 </div>
             )}
+
+            <footer className="admin-about-footer">
+                <p>&copy; 2024 Our Restaurant. All Rights Reserved.</p>
+            </footer>
         </div>
     );
 };

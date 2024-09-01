@@ -1,0 +1,44 @@
+.offer-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    margin-top: -90px;
+}
+
+.offer-content {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.offer-heading {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.offer-paragraph {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.offer-button {
+    background-color: #ff4500;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.offer-button:hover {
+    background-color: #ff6347;
+}
+
+.offer-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}

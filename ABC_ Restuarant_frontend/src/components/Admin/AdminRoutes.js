@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
+import Admin from './AdminOther';
 import AdminFacility from './AdminFacility';
 import AdminGallery from './AdminGallery';
-import AdminReservation from './AdminReservation';
 import AdminNavbar from './AdminNavbar';
-import Admin from './Admin';
 import AdminProduct from './AdminProduct';
-import AdminFeedback from './AdminFeedback';
+import AdminReservation from './AdminReservation';
+import AdminOther from './AdminOther';
 
 function AdminRoutes() {
     const location = useLocation();
@@ -18,7 +18,7 @@ function AdminRoutes() {
         '/admin-gallery',
         '/admin-facility',
         '/admin-reservation',
-        '/admin-feedback'
+        '/admin-other'
     ];
 
     return (
@@ -33,7 +33,7 @@ function AdminRoutes() {
                 <Route path='/admin-gallery' element={<AdminGallery />} />
                 <Route path='/admin-reservation' element={<AdminReservation />} />
                 <Route path='/admin-product' element={<AdminProduct />} />
-                <Route path='/admin-feedback' element={<AdminFeedback />} />
+                <Route path='/admin-other' element={<AdminOther />} />
             </Routes>
         </>
     );

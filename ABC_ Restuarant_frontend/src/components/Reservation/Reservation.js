@@ -89,7 +89,7 @@ const Reservation = () => {
   };
 
   const outlets = [
-    { value: 'Batharamulla', label: 'Batharamulla' },
+    { value: 'Bambalapitiya', label: 'Bambalapitiya' },
     { value: 'Maharagama', label: 'Maharagama' },
     { value: 'Athurigitiya', label: 'Athurigitiya' }
   ];

@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import Modal from 'react-modal';
+import './Staff.css';
+
+Modal.setAppElement('#root');
 
 const StaffFeedback = () => {
     const [feedbackList, setFeedbackList] = useState([]);
     const [response, setResponse] = useState('');
     const [selectedFeedback, setSelectedFeedback] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
 
     useEffect(() => {
         fetchFeedbacks();
@@ -24,9 +30,13 @@ const StaffFeedback = () => {
         setResponse(e.target.value);
     };
 
-    const submitResponse = async (feedbackId) => {
+    const submitResponse = async () => {
         try {
-            await axios.put(`/feedback/${feedbackId}`, { staffResponse: response });
+            if (isEditing) {
+                await axios.put(`/feedback/${selectedFeedback}`, { staffResponse: response });
+            } else {
+                await axios.post(`/feedback/${selectedFeedback}`, { staffResponse: response });
+            }
             Swal.fire({
                 title: 'Success!',
                 text: 'Response submitted successfully!',
@@ -36,7 +46,9 @@ const StaffFeedback = () => {
             });
             setResponse('');
             setSelectedFeedback(null);
-            fetchFeedbacks(); // Refresh the feedback list
+            setIsEditing(false);
+            setIsModalOpen(false);
+            fetchFeedbacks();
         } catch (error) {
             console.error('Error submitting response:', error);
             Swal.fire({
@@ -49,13 +61,29 @@ const StaffFeedback = () => {
         }
     };
 
+    const openModal = (feedback) => {
+        setSelectedFeedback(feedback.feedbackId);
+        setResponse(feedback.staffResponse || '');
+        setIsEditing(!!feedback.staffResponse);
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setResponse('');
+        setIsEditing(false);
+    };
+
     return (
-        <div className="container mt-5">
-            <h1 className="form-head">Staff Feedback Management</h1>
+        <div className="staff-container mt-5">
+            <h1 className="staff-form-head">Feedback Manage</h1>
+            <p className="staff-contact-paragraph" data-aos="fade-down">
+                At ABC Restaurant, staff members can efficiently manage customer feedback through our dedicated admin feedback management system. By actively managing feedback, our team can maintain high standards of service, continuously improve the dining experience, and foster strong relationships with our valued customers.
+            </p>
             <table className="table">
                 <thead>
                     <tr>
-                        <th>Customer Name</th>
+                        <th>Name</th>
                         <th>Email</th>
                         <th>Phone Number</th>
                         <th>Subject</th>
@@ -76,8 +104,8 @@ const StaffFeedback = () => {
                             <td>{feedback.rating}</td>
                             <td>{feedback.staffResponse}</td>
                             <td>
-                                <button className="btn btn-primary" onClick={() => setSelectedFeedback(feedback.feedbackId)}>
-                                    Respond
+                                <button className="btn btn-primary" onClick={() => openModal(feedback)}>
+                                    {feedback.staffResponse ? 'Edit Response' : 'Respond'}
                                 </button>
                             </td>
                         </tr>
@@ -85,24 +113,33 @@ const StaffFeedback = () => {
                 </tbody>
             </table>
 
-            {selectedFeedback && (
-                <div className="mt-4">
-                    <h3>Respond to Feedback</h3>
-                    <textarea
-                        className="form-control"
-                        rows="4"
-                        value={response}
-                        onChange={handleResponseChange}
-                        placeholder="Enter your response..."
-                    ></textarea>
-                    <button
-                        className="btn btn-success mt-3"
-                        onClick={() => submitResponse(selectedFeedback)}
-                    >
-                        Submit Response
-                    </button>
-                </div>
-            )}
+            <Modal
+                isOpen={isModalOpen}
+                onRequestClose={closeModal}
+                contentLabel="Respond to Feedback"
+                className="Modal"
+                overlayClassName="Overlay"
+            >
+                <h2>{isEditing ? 'Edit Response' : 'Respond to Feedback'}</h2>
+                <textarea
+                    className="form-control"
+                    rows="4"
+                    value={response}
+                    onChange={handleResponseChange}
+                    placeholder="Enter your response..."
+                ></textarea>
+                <button
+                    className="btn btn-success mt-3"
+                    onClick={submitResponse}
+                >
+                    {isEditing ? 'Update Response' : 'Submit Response'}
+                </button>
+                <button className="btn btn-secondary mt-3" onClick={closeModal}>Cancel</button>
+            </Modal>
+
+            <footer className="admin-about-footer">
+                <p>&copy; 2024 Our Restaurant. All Rights Reserved.</p>
+            </footer>
         </div>
     );
 };

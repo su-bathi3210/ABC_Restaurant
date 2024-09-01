@@ -604,3 +604,67 @@ td {
 .admin-table-container h6:hover {
     transform: scale(1.1);
 }
+
+.admin-about-footer {
+    text-align: center;
+    margin-top: 80px;
+    padding: 20px;
+}
+
+.admin-about-footer p {
+    font-size: 0.9em;
+    font-weight: 700;
+}
+
+
+/* Admin Feedback */
+
+.feedback-container {
+    padding: -20px;
+    border-radius: 10px;
+    max-width: 1215px;
+    margin: 0 auto;
+}
+
+.feedback-form-head {
+    font-size: 35px;
+    color: #b4a12d;
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+    margin-top: -80px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.feedback-form-head:hover {
+    transform: scale(1.1);
+}
+
+.feedback-container .contact-paragraph {
+    font-size: 1.1vw;
+    line-height: 1.84;
+    font-weight: 500;
+    text-align: center;
+    margin-top: -41px;
+    margin-bottom: 50px;
+}
+
+.btn {
+    padding: 8px 12px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+.btn-danger {
+    background-color: tomato;
+    margin-bottom: 10px;
+}
+
+.btn .btn-danger:hover {
+    background-color: #555;
+}

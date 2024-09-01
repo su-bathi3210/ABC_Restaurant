@@ -7,8 +7,8 @@ import { StoreContext } from '../StoreContext/StoreContext';
 
 const Navbar = ({ setShowLogin }) => {
 
-const{getTotalCartAmount} =useContext(StoreContext);
-  
+  const { getTotalCartAmount } = useContext(StoreContext);
+
   return (
     <nav className="navbar">
       <div className="navbar-container">
@@ -25,11 +25,13 @@ const{getTotalCartAmount} =useContext(StoreContext);
           <li><a href="/contact" className="navbar-item">Contact</a></li>
         </ul>
         <div className="navbar-auth">
+
           <a href="/cart" className="cart-button">
             <Link to='/cart'><img src={cartIcon} alt="Cart" className="cart-icon" /></Link>
-            <div className={getTotalCartAmount()===0?"":"dot"}>
+            <div className={getTotalCartAmount() === 0 ? "" : "dot"}>
             </div>
           </a>
+
           <button onClick={() => setShowLogin(true)}>Sign In</button>
         </div>
       </div>

@@ -14,6 +14,7 @@ import Home from './pages/Home/Home';
 import PlaceOrder from './pages/PlaceOrder/PlaceOrder';
 import Facility from './components/Facility/Facility';
 import StaffRoutes from './components/Staff/StaffRoutes';
+import Offer from './components/Offers/Offer';
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
           <Route path='/reservation' element={<Reservation />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='/order' element={<PlaceOrder />} />
+          <Route path='/offer' element={<Offer />} />
         </Routes>
         <AdminRoutes />
         <StaffRoutes />

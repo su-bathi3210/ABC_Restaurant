@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Staff.css';
-import logo from '../../admin_assets/Admin.png';
+import logo from '../../admin_assets/staff.png';
 
 const StaffNavbar = ({ setShowLogin }) => {
 
@@ -16,7 +16,9 @@ const StaffNavbar = ({ setShowLogin }) => {
           <li><Link to="/staff-orders" className="staff-navbar-item">Orders</Link></li>
           <li><Link to="/staff-reservation" className="staff-navbar-item">Reservation</Link></li>
           <li><Link to="/staff-feedback" className="staff-navbar-item">Feedback</Link></li>
-          <li><Link to="/staff-other" className="staff-navbar-item">Other</Link></li>
+          <li><Link to="/staff-feedback" className="staff-navbar-item">Branch</Link></li>
+          <li><Link to="/staff-feedback" className="staff-navbar-item">Deals</Link></li>
+          <li><Link to="/staff-other" className="staff-navbar-item">User</Link></li>
         </ul>
 
         <div className="navbar-auth">

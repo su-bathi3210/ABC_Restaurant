@@ -247,6 +247,10 @@ const GalleryForm = () => {
                 )}
                 <button onClick={closeModal} className="btn btn-secondary">Close</button>
             </Modal>
+
+            <footer className="admin-about-footer">
+                <p>&copy; 2024 Our Restaurant. All Rights Reserved.</p>
+            </footer>
         </div>
     );
 };

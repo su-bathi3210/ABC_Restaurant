@@ -136,15 +136,25 @@ const Feedback = () => {
 
                 <div className="mb-3 row">
                     <div className="col-sm-10">
-                        <input
-                            type="text"
+                        <select
                             className={`form-control ${errors.subject ? 'is-invalid' : ''}`}
                             id="subject"
                             name="subject"
                             value={feedback.subject}
                             onChange={handleChange}
-                            placeholder="Enter Subject"
-                        />
+                        >
+                            <option value="">Select Subject</option>
+                            <option value="Food Quality">Food Quality</option>
+                            <option value="Service">Service</option>
+                            <option value="Ambiance">Ambiance</option>
+                            <option value="Value for Money">Value for Money</option>
+                            <option value="Menu Variety">Menu Variety</option>
+                            <option value="Order Accuracy">Order Accuracy</option>
+                            <option value="Speed of Service">Speed of Service</option>
+                            <option value="Overall Experience">Overall Experience</option>
+                            <option value="Reservations and Wait Time">Reservations and Wait Time</option>
+                            <option value="Accessibility">Accessibility</option>
+                        </select>
                         {errors.subject && <div className="invalid-feedback">{errors.subject}</div>}
                     </div>
                 </div>
@@ -179,8 +189,6 @@ const Feedback = () => {
                 <button type="submit" className="btn-primary-submit">Submit your Feedback</button>
             </form>
         </div>
-
-
     );
 };
 
