@@ -9,7 +9,8 @@ const AdminUser = () => {
     const [newUser, setNewUser] = useState({
         username: '',
         userEmail: '',
-        userType: ''
+        userType: '',
+        password: '' // Added password field
     });
 
     useEffect(() => {
@@ -60,7 +61,7 @@ const AdminUser = () => {
                 const addedUser = await response.json();
                 setUsers([...users, addedUser]);
                 setShowAddForm(false);
-                setNewUser({ username: '', userEmail: '', userType: '' });
+                setNewUser({ username: '', userEmail: '', userType: '', password: '' });
             } else {
                 console.error('Failed to add user');
             }
@@ -84,7 +85,7 @@ const AdminUser = () => {
                 setUsers(users.map(user => (user.userId === currentUserId ? updatedUser : user)));
                 setShowEditForm(false);
                 setCurrentUserId(null);
-                setNewUser({ username: '', userEmail: '', userType: '' });
+                setNewUser({ username: '', userEmail: '', userType: '', password: '' });
             } else {
                 console.error('Failed to edit user');
             }
@@ -107,6 +108,7 @@ const AdminUser = () => {
             username: user.username,
             userEmail: user.userEmail,
             userType: user.userType,
+            password: '' // Password field is kept empty for security
         });
         setShowEditForm(true);
         setShowAddForm(false);
@@ -146,6 +148,13 @@ const AdminUser = () => {
                             <option value="admin">Admin</option>
                             <option value="staff">Staff</option>
                         </select>
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            value={newUser.password}
+                            onChange={handleInputChange}
+                        />
                         <button className="submit-button" onClick={handleAddUser}>Submit</button>
                         <button className="cancel-button" onClick={() => setShowAddForm(false)}>Cancel</button>
                     </div>
@@ -179,6 +188,13 @@ const AdminUser = () => {
                             <option value="admin">Admin</option>
                             <option value="staff">Staff</option>
                         </select>
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            value={newUser.password}
+                            onChange={handleInputChange}
+                        />
                         <button className="submit-button" onClick={handleEditUser}>Save Changes</button>
                         <button className="cancel-button" onClick={() => setShowEditForm(false)}>Cancel</button>
                     </div>
@@ -192,6 +208,7 @@ const AdminUser = () => {
                         <th>Username</th>
                         <th>Email</th>
                         <th>User Type</th>
+                        <th>Password</th> {/* Added Password column */}
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -202,6 +219,7 @@ const AdminUser = () => {
                             <td>{user.username}</td>
                             <td>{user.userEmail}</td>
                             <td>{user.userType}</td>
+                            <td>{user.password}</td> {/* Displaying Password */}
                             <td>
                                 <button onClick={() => handleEditButtonClick(user)}>Edit</button>
                                 <button onClick={() => handleDelete(user.userId)}>Delete</button>
