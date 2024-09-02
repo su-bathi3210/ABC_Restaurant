@@ -1,9 +1,8 @@
 package abc.example.abcResturant.Service;
 
-import abc.example.abcResturant.Model.Admin;
-import abc.example.abcResturant.Model.Staff;
-import abc.example.abcResturant.Repository.AdminRepository;
-import abc.example.abcResturant.Repository.StaffRepository;
+import abc.example.abcResturant.Exception.ResourceNotFoundException;
+import abc.example.abcResturant.Model.User;
+import abc.example.abcResturant.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,89 +11,41 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-
     @Autowired
-    private AdminRepository adminRepository;
+    private UserRepository userRepository;
 
-    @Autowired
-    private StaffRepository staffRepository;
-
-
-
-    // Admin methods
-    public List<Admin> getAllAdmins() {
-        return adminRepository.findAll();
+    public List<User> allUser() {
+        return userRepository.findAll();
     }
 
-    public Optional<Admin> getAdminById(String id) {
-        return adminRepository.findById(id);
+    public Optional<User> singleUser(String userId) {  // Change ObjectId to String
+        return userRepository.findById(userId);
     }
 
-    public Admin addAdmin(Admin admin) {
-        return adminRepository.save(admin);
+    public User addUser(User user) {
+        if (user.getUserId() == null || user.getUserId().isEmpty()) {
+            user.setUserId(generateUserId());  // Ensure userId is set
+        }
+        return userRepository.save(user);
     }
 
-
-    public Admin updateAdmin(String id, Admin admin) {
-        return adminRepository.findById(id)
-                .map(existingAdmin -> {
-                    existingAdmin.setUsername(admin.getUsername());
-                    existingAdmin.setPassword(admin.getPassword());
-                    existingAdmin.setFullName(admin.getFullName());
-                    existingAdmin.setPhoneNumber(admin.getPhoneNumber());
-                    return adminRepository.save(existingAdmin);
-                })
-                .orElseThrow(() -> new RuntimeException("Admin not found"));
+    private String generateUserId() {
+        long count = userRepository.count();
+        return String.format("U-%03d", count + 1);
     }
 
-    public void deleteAdmin(String id) {
-        adminRepository.deleteById(id);
+    public User updateUser(String userId, User user) {  // Change ObjectId to String
+        if (!userRepository.existsById(userId)) {
+            throw new ResourceNotFoundException("User not found with userId " + userId);
+        }
+        user.setUserId(userId);  // Set the userId before saving
+        return userRepository.save(user);
     }
 
-    // Staff methods
-    public List<Staff> getAllStaff() {
-        return staffRepository.findAll();
+    public void deleteUser(String userId) {  // Change ObjectId to String
+        if (!userRepository.existsById(userId)) {
+            throw new ResourceNotFoundException("User not found with userId " + userId);
+        }
+        userRepository.deleteById(userId);
     }
-
-    public Optional<Staff> getStaffById(String id) {
-        return staffRepository.findById(id);
-    }
-
-    public Staff addStaff(Staff staff) {
-        return staffRepository.save(staff);
-    }
-
-    public Staff updateStaff(String id, Staff staff) {
-        return staffRepository.findById(id)
-                .map(existingStaff -> {
-                    existingStaff.setUsername(staff.getUsername());
-                    existingStaff.setPassword(staff.getPassword());
-                    existingStaff.setFullName(staff.getFullName());
-                    existingStaff.setPhoneNumber(staff.getPhoneNumber());
-                    existingStaff.setDesignation(staff.getDesignation());
-                    existingStaff.setBranch(staff.getBranch());
-                    return staffRepository.save(existingStaff);
-                })
-                .orElseThrow(() -> new RuntimeException("Staff not found"));
-    }
-
-    public void deleteStaff(String id) {
-        staffRepository.deleteById(id);
-    }
-
-    // Customer methods
-
-
-
-
-    // Authentication
-    public Optional<Admin> authenticateAdmin(String username, String password) {
-        return adminRepository.findByUsername(username).filter(admin -> admin.getPassword().equals(password));
-    }
-
-    public Optional<Staff> authenticateStaff(String username, String password) {
-        return staffRepository.findByUsername(username).filter(staff -> staff.getPassword().equals(password));
-    }
-
-
 }

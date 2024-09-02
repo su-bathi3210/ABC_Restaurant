@@ -4,6 +4,7 @@ import Staff from './Staff';
 import StaffNavbar from './StaffNavbar';
 import StaffReservation from './StaffReservation';
 import StaffFeedback from './StaffFeedback';
+import StaffDeals from './StaffDeals';
 
 function StaffRoutes() {
   const location = useLocation();
@@ -14,7 +15,8 @@ function StaffRoutes() {
     '/staff-orders',
     '/staff-reservation',
     '/staff-feedback',
-    '/staff-other'
+    '/staff-other',
+    '/staff-deals'
   ];
 
   return (
@@ -27,6 +29,7 @@ function StaffRoutes() {
         <Route path='/staff' element={<Staff />} />
         <Route path='/staff-reservation' element={<StaffReservation />} />
         <Route path='/staff-feedback' element={<StaffFeedback />} />
+        <Route path='/staff-deals' element={<StaffDeals />} />
       </Routes>
     </>
   );

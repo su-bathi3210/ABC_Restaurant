@@ -1,39 +1,48 @@
-import axios from 'axios';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { assets } from '../../assets/assets';
 import './LoginPopup.css';
+import { assets } from '../../assets/assets';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPopup = ({ setShowLogin }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const navigate = useNavigate();
   const [currState, setCurrState] = useState("Login");
+  const [username, setUsername] = useState(""); // New state for username
+  const [userEmail, setUserEmail] = useState(""); // New state for email
+  const [password, setPassword] = useState(""); // New state for password
+  const [userType, setUserType] = useState("customer"); // New state for user type
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(''); // Reset error state before making the request
 
-    // Differentiate between Login and Sign Up actions
-    const url = currState === "Login" ? '/user/login/admin' : '/user/signup/admin';
+    const user = { username, userEmail, password, userType };
 
-    axios.post(url, null, {
-      params: { username, password }
-    })
-      .then(response => {
-        if (currState === "Login") {
-          // Assuming the response includes a token or session identifier
-          localStorage.setItem('adminSession', response.data.token); // Save token/session
-          navigate('/admin'); // Redirect to admin page upon successful login
+    if (currState === "Sign up") {
+      try {
+        const response = await fetch('/user', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(user),
+        });
+
+        if (response.ok) {
+          setCurrState("Login");
         } else {
-          setCurrState("Login"); // Redirect to login after successful sign-up
+          console.error('Signup failed');
         }
-      })
-      .catch(error => {
-        setError('Invalid credentials');
-        console.error('Login/Sign-up error:', error);
-      });
+      } catch (error) {
+        console.error('Error during signup:', error);
+      }
+    } else {
+      // Login logic here
+
+      if (userType === "admin") {
+        navigate('/admin');
+      } else if (userType === "staff") {
+        navigate('/staff');
+      }
+    }
   };
 
   return (
@@ -41,47 +50,59 @@ const LoginPopup = ({ setShowLogin }) => {
       <form className='login-popup-container' onSubmit={handleSubmit}>
         <div className='login-popup-title'>
           <h2>{currState}</h2>
-          <img onClick={() => setShowLogin(false)} src={assets.cross_icon} alt='Close' />
+          <img onClick={() => setShowLogin(false)} src={assets.cross_icon} alt="" />
         </div>
-        <div className='login-popup-inputs'>
-          {currState === "Sign Up" && (
-            <input
-              type='text'
-              placeholder='Your Name'
-              required
-              onChange={(e) => setUsername(e.target.value)}
-            />
+        <div className="login-popup-inputs">
+          {currState === "Sign up" && (
+            <>
+              <input
+                type="text"
+                placeholder='Your Name'
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+            </>
           )}
           <input
             type="email"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            placeholder='Your Email'
+            value={userEmail}
+            onChange={(e) => setUserEmail(e.target.value)}
             required
-            placeholder={currState === "Login" ? "Enter Admin Email" : "Your Email"}
           />
           <input
             type="password"
+            placeholder='Your Password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            placeholder="Password"
           />
+          {currState === "Login" && (
+            <select
+              value={userType}
+              onChange={(e) => setUserType(e.target.value)}
+              required
+            >
+              <option value="admin">Admin</option>
+              <option value="staff">Staff</option>
+            </select>
+          )}
         </div>
-        <div className='login-popup-condition'>
-          <input type='checkbox' required />
-          <p>By Continuing, I Agree to the Terms of Use & Privacy Policy.</p>
+        <button type="submit">
+          {currState === "Sign up" ? "Create account" : "Login"}
+        </button>
+        <div className="login-popup-condition">
+          <input type="checkbox" required />
+          <p>By continuing, I agree to the terms of use & privacy policy</p>
         </div>
-        <button type="submit">{currState === "Sign Up" ? "Create Account" : "Login"}</button>
-
-        {error && <p className="error-message">{error}</p>}
-
         {currState === "Login"
-          ? <p>Create a New Account? <span onClick={() => setCurrState("Sign Up")}>Click Here</span></p>
-          : <p>Already Have an Account? <span onClick={() => setCurrState("Login")}>Login Here</span></p>
+          ? <p>Create new Account? <span onClick={() => setCurrState("Sign up")}>Click here</span></p>
+          : <p>Already have an account? <span onClick={() => setCurrState("Login")}>Login here</span></p>
         }
       </form>
     </div>
   );
-};
+}
 
 export default LoginPopup;

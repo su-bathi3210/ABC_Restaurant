@@ -17,7 +17,7 @@ const StaffNavbar = ({ setShowLogin }) => {
           <li><Link to="/staff-reservation" className="staff-navbar-item">Reservation</Link></li>
           <li><Link to="/staff-feedback" className="staff-navbar-item">Feedback</Link></li>
           <li><Link to="/staff-feedback" className="staff-navbar-item">Branch</Link></li>
-          <li><Link to="/staff-feedback" className="staff-navbar-item">Deals</Link></li>
+          <li><Link to="/staff-deals" className="staff-navbar-item">Deals</Link></li>
           <li><Link to="/staff-other" className="staff-navbar-item">User</Link></li>
         </ul>
 

@@ -15,6 +15,7 @@ import PlaceOrder from './pages/PlaceOrder/PlaceOrder';
 import Facility from './components/Facility/Facility';
 import StaffRoutes from './components/Staff/StaffRoutes';
 import Offer from './components/Offers/Offer';
+import Deals from './components/Offers/Deals';
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
           <Route path='/cart' element={<Cart />} />
           <Route path='/order' element={<PlaceOrder />} />
           <Route path='/offer' element={<Offer />} />
+          <Route path='/deals' element={<Deals />} />
         </Routes>
         <AdminRoutes />
         <StaffRoutes />

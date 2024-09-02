@@ -1,14 +1,13 @@
 package abc.example.abcResturant.Controller;
 
-import jakarta.servlet.http.HttpSession;
-import abc.example.abcResturant.Model.Admin;
-import abc.example.abcResturant.Model.Staff;
+import abc.example.abcResturant.Model.User;
 import abc.example.abcResturant.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -18,109 +17,31 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    // Admin endpoints
-    @GetMapping("/admin")
-    public ResponseEntity<?> getAllAdmins() {
-        return ResponseEntity.ok(userService.getAllAdmins());
+    @GetMapping
+    public ResponseEntity<List<User>> getAllUsers() {
+        return new ResponseEntity<>(userService.allUser(), HttpStatus.OK);
     }
 
-    @GetMapping("/admin/{id}")
-    public ResponseEntity<?> getAdminById(@PathVariable String id) {
-        return userService.getAdminById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    @GetMapping("/{userId}")
+    public ResponseEntity<Optional<User>> getSingleUser(@PathVariable String userId) {  // Change ObjectId to String
+        return new ResponseEntity<>(userService.singleUser(userId), HttpStatus.OK);
     }
 
-    @PostMapping("/admin")
-    public ResponseEntity<?> registerAdmin(@RequestBody Admin admin) {
-        return ResponseEntity.ok(userService.addAdmin(admin));
+    @PostMapping
+    public ResponseEntity<User> addUser(@RequestBody User user) {
+        User newUser = userService.addUser(user);
+        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
 
-    @PutMapping("/admin/{id}")
-    public ResponseEntity<?> updateAdmin(@PathVariable String id, @RequestBody Admin admin) {
-        try {
-            return ResponseEntity.ok(userService.updateAdmin(id, admin));
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
+    @PutMapping("/{userId}")
+    public ResponseEntity<User> updateUser(@PathVariable("userId") String userId, @RequestBody User user) {  // Change ObjectId to String
+        User updatedUser = userService.updateUser(userId, user);
+        return ResponseEntity.ok(updatedUser);
     }
 
-    @DeleteMapping("/admin/{id}")
-    public ResponseEntity<?> deleteAdmin(@PathVariable String id) {
-        userService.deleteAdmin(id);
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<Void> deleteUser(@PathVariable("userId") String userId) {  // Change ObjectId to String
+        userService.deleteUser(userId);
         return ResponseEntity.noContent().build();
     }
-
-    // Staff endpoints
-    @GetMapping("/staff")
-    public ResponseEntity<?> getAllStaff() {
-        return ResponseEntity.ok(userService.getAllStaff());
-    }
-
-    @GetMapping("/staff/{id}")
-    public ResponseEntity<?> getStaffById(@PathVariable String id) {
-        return userService.getStaffById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @PostMapping("/staff")
-    public ResponseEntity<?> registerStaff(@RequestBody Staff staff) {
-        return ResponseEntity.ok(userService.addStaff(staff));
-    }
-
-    @PutMapping("/staff/{id}")
-    public ResponseEntity<?> updateStaff(@PathVariable String id, @RequestBody Staff staff) {
-        try {
-            return ResponseEntity.ok(userService.updateStaff(id, staff));
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
-    }
-
-    @DeleteMapping("/staff/{id}")
-    public ResponseEntity<?> deleteStaff(@PathVariable String id) {
-        userService.deleteStaff(id);
-        return ResponseEntity.noContent().build();
-    }
-
-
-
-    // Authentication endpoints
-    @PostMapping("/login/admin")
-    public ResponseEntity<?> loginAdmin(@RequestParam String username, @RequestParam String password, HttpSession session) {
-        Optional<Admin> admin = userService.authenticateAdmin(username, password);
-        if (admin.isPresent()) {
-            session.setAttribute("user", admin.get());
-            return ResponseEntity.ok(admin.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
-        }
-    }
-
-    @PostMapping("/login/staff")
-    public ResponseEntity<?> loginStaff(@RequestParam String username, @RequestParam String password, HttpSession session) {
-        Optional<Staff> staff = userService.authenticateStaff(username, password);
-        if (staff.isPresent()) {
-            session.setAttribute("user", staff.get());
-            return ResponseEntity.ok(staff.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
-        }
-    }
-
-
-
-    @GetMapping("/logout")
-    public ResponseEntity<?> logout(HttpSession session) {
-        session.invalidate(); // Invalidate the session
-        return ResponseEntity.ok("Logged out successfully");
-    }
-
-
-
-
-
-    // Inner class for login requests
-
 }

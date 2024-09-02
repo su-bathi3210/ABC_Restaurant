@@ -10,13 +10,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Document(collection = "offer")
-public class Offer {
+@Document(collection = "branch")
+
+public class Branch {
     @Id
     private ObjectId id;
-    private String couponCode;
-    private String offerDescription;
-    private String offerName;
-    private float offerValue;
-    private String offerImage;
+    private String branchId;
+    private String branchName;
+    private String branchAddress;
 }

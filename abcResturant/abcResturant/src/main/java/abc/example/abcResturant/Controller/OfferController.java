@@ -24,6 +24,19 @@ public class OfferController {
         return ResponseEntity.ok(savedOffer);
     }
 
+    // Update an offer
+    @PutMapping("/{id}")
+    public ResponseEntity<Offer> updateOffer(@PathVariable ObjectId id, @RequestBody Offer offer) {
+        Optional<Offer> existingOffer = offerService.getOfferById(id);
+        if (existingOffer.isPresent()) {
+            Offer updatedOffer = offerService.saveOffer(offer); // Save the updated offer
+            return ResponseEntity.ok(updatedOffer);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
     // Retrieve all offers
     @GetMapping
     public ResponseEntity<List<Offer>> getAllOffers() {

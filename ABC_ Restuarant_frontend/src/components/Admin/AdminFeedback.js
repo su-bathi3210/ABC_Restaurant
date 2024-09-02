@@ -95,10 +95,6 @@ const AdminFeedback = () => {
                     </tbody>
                 </table>
             </div>
-
-            <footer className="admin-about-footer">
-                <p>&copy; 2024 Our Restaurant. All Rights Reserved.</p>
-            </footer>
         </div>
     );
 };
