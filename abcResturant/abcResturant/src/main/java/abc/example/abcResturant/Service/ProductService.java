@@ -2,6 +2,7 @@ package abc.example.abcResturant.Service;
 
 import abc.example.abcResturant.Model.Product;
 import abc.example.abcResturant.Repository.ProductRepository;
+import abc.example.abcResturant.Exception.ResourceNotFoundException;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,39 +12,53 @@ import java.util.Optional;
 
 @Service
 public class ProductService {
-
     @Autowired
     private ProductRepository productRepository;
 
-    public List<Product> getAllProducts() {
+    // Get all products
+    public List<Product> allProduct() {
         return productRepository.findAll();
     }
 
-    public Optional<Product> getProductById(ObjectId id) {
+    // Get a single product by id
+    public Optional<Product> singleProduct(ObjectId id) {
         return productRepository.findById(id);
     }
 
-    public Product createProduct(Product product) {
+    // Add a new product
+    public Product addProduct(Product product) {
+        product.setProductId(generateProductId());
         return productRepository.save(product);
     }
 
-    public Product updateProduct(ObjectId id, Product productDetails) {
-        Optional<Product> optionalProduct = productRepository.findById(id);
-        if (optionalProduct.isPresent()) {
-            Product product = optionalProduct.get();
-            product.setProductId(productDetails.getProductId());
-            product.setProductName(productDetails.getProductName());
-            product.setCategoryName(productDetails.getCategoryName());
-            product.setProductPrice(productDetails.getProductPrice());
-            product.setProductImage(productDetails.getProductImage());
-            product.setProductDescription(productDetails.getProductDescription());
-            return productRepository.save(product);
-        } else {
-            return null;
-        }
+    // Generate a new product ID
+    private String generateProductId() {
+        long count = productRepository.count();
+        return String.format("product-%03d", count + 1);
     }
 
+    // Update an existing product by id
+    public Product updateProduct(ObjectId id, Product product) {
+        if (!productRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Product not found with id " + id);
+        }
+        // Ensure the ID in the request body matches the ID in the URL
+        product.setId(id);
+        return productRepository.save(product);
+    }
+
+    // Delete a product by id
     public void deleteProduct(ObjectId id) {
+        if (!productRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Product not found with id " + id);
+        }
         productRepository.deleteById(id);
     }
+
+    // Get products by category name
+    public List<Product> getProductsByCategory(String categoryName) {
+        return productRepository.findByCategoryName(categoryName);
+    }
+
+
 }
