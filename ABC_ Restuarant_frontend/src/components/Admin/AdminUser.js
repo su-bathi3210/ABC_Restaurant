@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './Admin.css';
 
 const AdminUser = () => {
     const [users, setUsers] = useState([]);
@@ -113,67 +114,77 @@ const AdminUser = () => {
 
     return (
         <div className='admin-user-management'>
-            <button className="add-user-button" onClick={() => setShowAddForm(!showAddForm)}>
-                {showAddForm ? 'Cancel' : 'Add User'}
-            </button>
+            <h2>Manage Users</h2>
+            <p>As an administrator for ABC Restaurant, you can efficiently manage user accounts through the "Manage Users" section. This feature allows you to add new users, update existing user details, and delete accounts as needed. It provides a streamlined interface for overseeing user information, ensuring you can maintain an organized and up-to-date user database with ease.</p>
+
+            <button className="add-user-button" onClick={() => setShowAddForm(true)}>Add Staff & User</button>
 
             {showAddForm && (
-                <div className='add-user-form'>
-                    <h3>Add New User</h3>
-                    <input
-                        type="text"
-                        name="username"
-                        placeholder="Username"
-                        value={newUser.username}
-                        onChange={handleInputChange}
-                    />
-                    <input
-                        type="email"
-                        name="userEmail"
-                        placeholder="Email"
-                        value={newUser.userEmail}
-                        onChange={handleInputChange}
-                    />
-                    <input
-                        type="text"
-                        name="userType"
-                        placeholder="User Type"
-                        value={newUser.userType}
-                        onChange={handleInputChange}
-                    />
-                    <button className="submit-button" onClick={handleAddUser}>Submit</button>
+                <div className="modal-overlay" onClick={() => setShowAddForm(false)}>
+                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                        <h3>Add New Staff & User</h3>
+                        <input
+                            type="text"
+                            name="username"
+                            placeholder="Username"
+                            value={newUser.username}
+                            onChange={handleInputChange}
+                        />
+                        <input
+                            type="email"
+                            name="userEmail"
+                            placeholder="Email"
+                            value={newUser.userEmail}
+                            onChange={handleInputChange}
+                        />
+                        <select
+                            name="userType"
+                            value={newUser.userType}
+                            onChange={handleInputChange}
+                        >
+                            <option value="">Select User Type</option>
+                            <option value="admin">Admin</option>
+                            <option value="staff">Staff</option>
+                        </select>
+                        <button className="submit-button" onClick={handleAddUser}>Submit</button>
+                        <button className="cancel-button" onClick={() => setShowAddForm(false)}>Cancel</button>
+                    </div>
                 </div>
             )}
 
             {showEditForm && (
-                <div className='edit-user-form'>
-                    <h3>Edit User</h3>
-                    <input
-                        type="text"
-                        name="username"
-                        placeholder="Username"
-                        value={newUser.username}
-                        onChange={handleInputChange}
-                    />
-                    <input
-                        type="email"
-                        name="userEmail"
-                        placeholder="Email"
-                        value={newUser.userEmail}
-                        onChange={handleInputChange}
-                    />
-                    <input
-                        type="text"
-                        name="userType"
-                        placeholder="User Type"
-                        value={newUser.userType}
-                        onChange={handleInputChange}
-                    />
-                    <button className="submit-button" onClick={handleEditUser}>Save Changes</button>
+                <div className="modal-overlay" onClick={() => setShowEditForm(false)}>
+                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                        <h3>Edit User</h3>
+                        <input
+                            type="text"
+                            name="username"
+                            placeholder="Username"
+                            value={newUser.username}
+                            onChange={handleInputChange}
+                        />
+                        <input
+                            type="email"
+                            name="userEmail"
+                            placeholder="Email"
+                            value={newUser.userEmail}
+                            onChange={handleInputChange}
+                        />
+                        <select
+                            name="userType"
+                            value={newUser.userType}
+                            onChange={handleInputChange}
+                        >
+                            <option value="">Select User Type</option>
+                            <option value="admin">Admin</option>
+                            <option value="staff">Staff</option>
+                        </select>
+                        <button className="submit-button" onClick={handleEditUser}>Save Changes</button>
+                        <button className="cancel-button" onClick={() => setShowEditForm(false)}>Cancel</button>
+                    </div>
                 </div>
             )}
 
-            <h2>Manage Users</h2>
             <table>
                 <thead>
                     <tr>
@@ -199,6 +210,10 @@ const AdminUser = () => {
                     ))}
                 </tbody>
             </table>
+
+            <footer className="admin-about-footer">
+                <p>&copy; 2024 Our Restaurant. All Rights Reserved.</p>
+            </footer>
         </div>
     );
 };

@@ -5,8 +5,6 @@ import abc.example.abcResturant.Repository.OfferRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,53 +12,41 @@ import java.util.Optional;
 @Service
 public class OfferService {
 
-    private static final Logger logger = LoggerFactory.getLogger(OfferService.class);
-
     @Autowired
     private OfferRepository offerRepository;
 
-    // Create or update an offer
-    public Offer saveOffer(Offer offer) {
-        try {
-            return offerRepository.save(offer);
-        } catch (Exception e) {
-            logger.error("Error saving offer: {}", e.getMessage());
-            throw new RuntimeException("Failed to save offer", e);
-        }
-    }
-
-    // Retrieve all offers
+    // Get all offers
     public List<Offer> getAllOffers() {
-        try {
-            return offerRepository.findAll();
-        } catch (Exception e) {
-            logger.error("Error retrieving offers: {}", e.getMessage());
-            throw new RuntimeException("Failed to retrieve offers", e);
-        }
+        return offerRepository.findAll();
     }
 
-    // Retrieve an offer by ID
+    // Get an offer by ID
     public Optional<Offer> getOfferById(ObjectId id) {
-        try {
-            return offerRepository.findById(id.toHexString());
-        } catch (Exception e) {
-            logger.error("Error retrieving offer by ID: {}", e.getMessage());
-            throw new RuntimeException("Failed to retrieve offer", e);
+        return offerRepository.findById(id);
+    }
+
+    // Create a new offer
+    public Offer createOffer(Offer offer) {
+        return offerRepository.save(offer);
+    }
+
+    // Update an existing offer
+    public Optional<Offer> updateOffer(ObjectId id, Offer offer) {
+        if (offerRepository.existsById(id)) {
+            offer.setId(id); // Ensure the correct ID is set for the document
+            return Optional.of(offerRepository.save(offer));
+        } else {
+            return Optional.empty();
         }
     }
 
     // Delete an offer by ID
-    public void deleteOfferById(ObjectId id) {
-        try {
-            if (offerRepository.existsById(id.toHexString())) {
-                offerRepository.deleteById(id.toHexString());
-            } else {
-                logger.warn("Offer with ID {} does not exist", id);
-                throw new RuntimeException("Offer not found");
-            }
-        } catch (Exception e) {
-            logger.error("Error deleting offer: {}", e.getMessage());
-            throw new RuntimeException("Failed to delete offer", e);
+    public boolean deleteOffer(ObjectId id) {
+        if (offerRepository.existsById(id)) {
+            offerRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
         }
     }
 }
