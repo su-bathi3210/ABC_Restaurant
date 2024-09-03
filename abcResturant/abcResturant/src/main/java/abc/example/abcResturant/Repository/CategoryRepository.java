@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CategoryRepository extends MongoRepository<Category, String> {
-    // You can define additional query methods here if needed
+    // Custom query methods (if needed) can be added here
 }

@@ -1,8 +1,8 @@
 package abc.example.abcResturant.Service;
 
+import abc.example.abcResturant.Exception.ResourceNotFoundException;
 import abc.example.abcResturant.Model.Offer;
 import abc.example.abcResturant.Repository.OfferRepository;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,37 +16,44 @@ public class OfferService {
     private OfferRepository offerRepository;
 
     // Get all offers
-    public List<Offer> getAllOffers() {
+    public List<Offer> allOffer() {
         return offerRepository.findAll();
     }
 
-    // Get an offer by ID
-    public Optional<Offer> getOfferById(ObjectId id) {
-        return offerRepository.findById(id);
+    // Get a single offer by offerId
+    public Optional<Offer> singleOffer(String offerId) {
+        return offerRepository.findByOfferId(offerId);
     }
 
-    // Create a new offer
-    public Offer createOffer(Offer offer) {
+    // Add a new offer
+    public Offer addOffer(Offer offer) {
+        offer.setOfferId(generateOfferId());
         return offerRepository.save(offer);
     }
 
-    // Update an existing offer
-    public Optional<Offer> updateOffer(ObjectId id, Offer offer) {
-        if (offerRepository.existsById(id)) {
-            offer.setId(id); // Ensure the correct ID is set for the document
-            return Optional.of(offerRepository.save(offer));
-        } else {
-            return Optional.empty();
-        }
+    // Generate a new offer ID
+    private String generateOfferId() {
+        long count = offerRepository.count();
+        return String.format("F-%03d", count + 1);
     }
 
-    // Delete an offer by ID
-    public boolean deleteOffer(ObjectId id) {
-        if (offerRepository.existsById(id)) {
-            offerRepository.deleteById(id);
-            return true;
-        } else {
-            return false;
+    // Update an existing offer by offerId
+    public Offer updateOffer(String offerId, Offer offer) {
+        Optional<Offer> existingOffer = offerRepository.findByOfferId(offerId);
+        if (!existingOffer.isPresent()) {
+            throw new ResourceNotFoundException("Offer not found with id " + offerId);
         }
+        // Ensure the offerId in the request body matches the offerId in the URL
+        offer.setOfferId(offerId);
+        return offerRepository.save(offer);
+    }
+
+    // Delete an offer by offerId
+    public void deleteOffer(String offerId) {
+        Optional<Offer> existingOffer = offerRepository.findByOfferId(offerId);
+        if (!existingOffer.isPresent()) {
+            throw new ResourceNotFoundException("Offer not found with id " + offerId);
+        }
+        offerRepository.delete(existingOffer.get());
     }
 }
