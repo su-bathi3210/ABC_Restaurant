@@ -1,5 +1,6 @@
 import React from 'react';
 import Feedback from './Feedback';
+import Branch from './Branch';
 import './Contact.css'
 import image1 from '../../images/image1.jpg'
 import image2 from '../../images/image2.jpg'
@@ -30,8 +31,10 @@ const Contact = () => {
                 </div>
                 <div className="feedback-form-section" data-aos="fade-up">
                     <Feedback />
+
                 </div>
             </div>
+            <Branch />
 
             {/* Image row below the feedback form */}
             <div className="image-row" data-aos="fade-up">

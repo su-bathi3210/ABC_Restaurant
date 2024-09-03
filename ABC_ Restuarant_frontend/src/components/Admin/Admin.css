@@ -794,3 +794,142 @@ td {
     font-size: 1rem;
     margin-left: 10px;
 }
+
+
+/* Admin Branch */
+.admin-branch-container {
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 1240px;
+    margin: 0 auto;
+}
+
+.admin-branch-container h1 {
+    font-size: 35px;
+    color: #d62e2e;
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+    margin-top: 80px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.admin-branch-container h1:hover {
+    transform: scale(1.1);
+}
+
+.admin-branch-container p {
+    font-size: 1.1vw;
+    line-height: 1.84;
+    font-weight: 500;
+    text-align: center;
+    margin-top: -41px;
+    margin-bottom: 50px;
+}
+
+.add-branch-button {
+    display: block;
+    margin: 20px 0;
+    padding: 10px 15px;
+    background-color: black;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-left: 15px;
+}
+
+.add-branch-button:hover {
+    background-color: #218838;
+}
+
+.popup-form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    z-index: 1000;
+    width: 90%;
+    text-align: center;
+    max-width: 500px;
+}
+
+.popup-form h2 {
+    margin-bottom: 20px;
+}
+
+.popup-form input {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.popup-form button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.popup-form button:first-of-type {
+    background-color: tomato;
+    color: #fff;
+}
+
+.popup-form button:first-of-type:hover {
+    background-color: brown;
+}
+
+.popup-form .cancel-button {
+    background-color: darkgreen;
+    color: #fff;
+    margin-top: 10px;
+}
+
+.popup-form .cancel-button:hover {
+    background-color: brown;
+}
+
+table input[type="text"],
+table input[type="email"] {
+    width: 100%;
+    padding: 8px;
+    margin: 4px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    text-align: center;
+    justify-content: center;
+}
+
+table button {
+    padding: 8px 12px;
+    margin: 4px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.admin-branch-container table button:first-of-type:hover {
+    background-color: #600000;
+}
+
+.cancel-button:hover {
+    background-color: #e53935;
+}
+
+table button + button {
+    margin-left: 8px;
+}

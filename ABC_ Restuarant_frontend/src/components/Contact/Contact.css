@@ -136,26 +136,26 @@ body {
 
 @media (max-width: 768px) {
   .container {
-      padding: 15px;
+    padding: 15px;
   }
 
   .form-head {
-      font-size: 24px;
+    font-size: 24px;
   }
 
   .form-control {
-      font-size: 14px;
+    font-size: 14px;
   }
 
   .btn-primary-submit {
-      font-size: 16px;
+    font-size: 16px;
   }
 }
 
 .image-row {
   display: flex;
   justify-content: space-between;
-  margin-top: 50px;
+  margin-top: 90px;
 }
 
 .image-row img {
@@ -178,10 +178,8 @@ body {
   font-weight: 700;
 }
 
-
-/* General container for the rating component */
 .rating-container {
-  width: 95%; /* Adjust width to fit on the right side */
+  width: 95%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -189,27 +187,85 @@ body {
   margin-bottom: 10px;
 }
 
-/* Style for the rating stars */
 .rating-container .react-stars svg {
   width: 30px;
   height: 30px;
-  fill: #ccc; /* Default star color */
+  fill: #ccc;
   transition: fill 0.3s ease-in-out;
 }
 
-/* Style when hovering over stars */
 .rating-container .react-stars svg:hover,
-.rating-container .react-stars svg:hover ~ svg {
-  fill: #ffdd57; /* Star color when hovered */
+.rating-container .react-stars svg:hover~svg {
+  fill: #ffdd57;
 }
 
-/* Style for the selected (active) stars */
 .rating-container .react-stars svg.active {
-  fill: #ffd700; /* Active star color (e.g., gold) */
+  fill: #ffd700;
 }
 
-/* Adjusting the layout and spacing */
 .rating-container label {
   font-size: 20px;
   font-weight: bold;
+}
+
+/* Container for the branches */
+.customer-branch-container {
+  padding: 20px;
+  text-align: center;
+}
+
+.customer-branch-container h1 {
+  font-size: 34px;
+  margin-bottom: 30px;
+  color: brown;
+  margin-top: 80px;
+}
+
+.customer-branch-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+}
+
+
+.customer-branch-box {
+  background-color: whitesmoke;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 20px;
+  width: 31%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.customer-branch-box:hover {
+  transform: scale(1.05);
+}
+
+.customer-branch-box h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.customer-branch-box p {
+  margin: 5px 0;
+  color: #555;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+
+@media (max-width: 768px) {
+  .customer-branch-box {
+    width: 45%;
+  }
+}
+
+@media (max-width: 480px) {
+  .customer-branch-box {
+    width: 100%;
+  }
 }

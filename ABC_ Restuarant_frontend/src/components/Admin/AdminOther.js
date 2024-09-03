@@ -1,12 +1,18 @@
 import React from 'react';
 import Feedback from './AdminFeedback';
-import AdminDeals from './AdminDeals';
+import Branch from './AdminBranch'
 
 const AdminOther = () => {
     return (
         <div>
             <Feedback />
-            <AdminDeals />
+            <Branch />
+            
+            
+            <footer className="admin-about-footer">
+                <p>&copy; 2024 Our Restaurant. All Rights Reserved.</p>
+            </footer>
+
         </div>
     )
 }
