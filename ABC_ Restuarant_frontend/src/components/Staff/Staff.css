@@ -356,7 +356,6 @@ tr:nth-child(even) {
     }
 }
 
-/* Styling for the form elements */
 .respond-form {
     display: flex;
     flex-direction: column;
@@ -395,7 +394,6 @@ tr:nth-child(even) {
     text-align: center;
 }
 
-/* Close button for modal */
 .modal-close-button {
     position: absolute;
     top: 10px;
@@ -412,7 +410,6 @@ tr:nth-child(even) {
     color: #000;
 }
 
-/* Ensure modal form looks good on smaller screens */
 @media (max-width: 576px) {
     .Modal {
         width: 95%;
@@ -423,3 +420,48 @@ tr:nth-child(even) {
         height: 100px;
     }
 }
+
+
+
+/* Staff branch */
+
+.staff-branch-container {
+    padding: 20px;
+    max-width: 1250px;
+    margin: auto;
+}
+
+.staff-branch-container h1 {
+    font-size: 35px;
+    color: 	#e39533;
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+    margin-top: -100px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.staff-branch-container h1:hover {
+    transform: scale(1.1);
+}
+
+.staff-branch-container p {
+    font-size: 1.1vw;
+    line-height: 1.84;
+    font-weight: 500;
+    text-align: center;
+    margin-top: -40px;
+    margin-bottom: 55px;
+}
+
+.admin-about-footer {
+    text-align: center;
+    margin-top: 80px;
+    padding: 20px;
+}
+
+.admin-about-footer p {
+    font-size: 0.9em;
+    font-weight: 700;
+}
+
