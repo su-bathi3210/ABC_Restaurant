@@ -157,8 +157,13 @@ const StaffReservation = () => {
                             <td>{table.tableNo}</td>
                             <td>{table.status}</td>
                             <td>
-                                <button onClick={() => handleEdit(table)}>Edit</button>
-                                <button onClick={() => handleDelete(table.id)}>Delete</button>
+                                <button 
+                                style={{ backgroundColor: '#600000', color: 'white', width: '60px' }}
+                                onClick={() => handleEdit(table)}>Edit</button>
+
+                                <button 
+                                style={{ backgroundColor: 'tomato', color: 'white', width: '70px' }}
+                                onClick={() => handleDelete(table.id)}>Delete</button>
                             </td>
                         </tr>
                     ))}

@@ -16,6 +16,7 @@ import Facility from './components/Facility/Facility';
 import StaffRoutes from './components/Staff/StaffRoutes';
 import Offer from './components/Offers/Offer';
 import Deals from './components/Offers/Deals';
+import Query from './components/Query/Query';
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
           <Route path='/order' element={<PlaceOrder />} />
           <Route path='/offer' element={<Offer />} />
           <Route path='/deals' element={<Deals />} />
+          <Route path='/query' element={<Query />} />
         </Routes>
         <AdminRoutes />
         <StaffRoutes />

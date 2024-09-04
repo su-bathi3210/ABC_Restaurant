@@ -47,7 +47,7 @@ body {
 .staff-navbar-item {
     color: black;
     text-decoration: none;
-    padding: 25px;
+    padding: 21px;
     font-size: 16px;
     font-weight: 500;
 }
@@ -123,7 +123,7 @@ body {
 
 .staff-table-container h1 {
     font-size: 35px;
-    color: 	#d62e2e;
+    color: 		#4c5a23;
     transform: scale(1.05);
     transition: transform 0.3s ease;
     margin-top: -100px;
@@ -465,3 +465,272 @@ tr:nth-child(even) {
     font-weight: 700;
 }
 
+/* Staff Order */
+
+.staff-orders {
+    padding: 20px;
+    max-width: 1300px;
+    margin: auto;
+}
+
+.staff-orders h2 {
+    font-size: 35px;
+    color: 	#d62e2e;
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+    margin-top: -100px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.staff-orders h2:hover {
+    transform: scale(1.1);
+}
+
+.staff-orders p {
+    font-size: 1.1vw;
+    line-height: 1.84;
+    font-weight: 500;
+    text-align: center;
+    margin-top: -40px;
+    margin-bottom: 57px;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 540px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 600px;
+    width: 100%;
+}
+
+
+.modal-content h3 {
+    margin-top: 0;
+    font-size: 23px;
+    color: tomato;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.order-form input {
+    width: 100%;
+    padding: 9px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.order-form button {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: -30px;
+}
+
+.order-form button[type="button"]:first-of-type {
+    background-color: #600000;
+    color: white;
+}
+
+.order-form button[type="button"]:first-of-type:hover {
+    background-color: gray;
+    color: white;
+}
+
+.order-form button[type="button"]:last-of-type {
+    background-color: darkgreen;
+    color: white;
+}
+
+.order-form button[type="button"]:last-of-type:hover {
+    background-color: gray;
+    color: white;
+}
+
+.admin-about-footer {
+    text-align: center;
+    margin-top: 80px;
+    padding: 20px;
+}
+
+.admin-about-footer p {
+    font-size: 0.9em;
+    font-weight: 700;
+}
+
+/* Staff.css */
+
+/* General styles for the select dropdown */
+.order-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    appearance: none; /* Removes the default arrow icon */
+    -webkit-appearance: none; /* For Safari */
+    -moz-appearance: none; /* For Firefox */
+}
+
+/* Adding custom arrow icon */
+.order-form select::after {
+    content: '▼';
+    font-size: 12px;
+    color: #333;
+    position: absolute;
+    right: 10px;
+    top: calc(50% - 6px);
+    pointer-events: none;
+}
+
+/* Focus and hover state for the select */
+.order-form select:focus,
+.order-form select:hover {
+    border-color: #333;
+    background-color: #fff;
+    outline: none;
+}
+
+/* Optional: Custom styles for options */
+.order-form option {
+    background-color: #fff;
+    color: #333;
+    font-size: 16px;
+}
+
+
+/* Staff Query */
+.staff-query-container {
+    padding: -20px;
+    border-radius: 10px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.staff-query-container h2 {
+    font-size: 35px;
+    color: #600000;
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+    margin-top: -80px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.staff-query-container h2:hover {
+    transform: scale(1.1);
+}
+
+.staff-query-container p {
+    font-size: 1.1vw;
+    line-height: 1.84;
+    font-weight: 500;
+    text-align: center;
+    margin-top: -40px;
+    margin-bottom: 50px;
+}
+
+.staff-query-container .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; 
+}
+
+.staff-query-container .modal-content {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.staff-query-container .modal-content h3 {
+    margin-top: 0;
+}
+
+.staff-query-container .edit-query-form .form-group {
+    margin-bottom: 15px;
+}
+
+.staff-query-container .edit-query-form input,
+.edit-query-form textarea,
+.edit-query-form select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: -8px;
+}
+
+.staff-query-container .edit-query-form textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.staff-query-container .edit-query-form button {
+    background-color: darkgreen;
+    color: #fff;
+    border: none;
+    padding: 10px 13px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 50px;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.staff-query-container .edit-query-form button:hover {
+    background-color: gray;
+}
+
+/* Cancel button styling */
+.staff-query-container .edit-query-form button[type="button"] {
+    background-color: #600000;
+}
+
+.staff-query-container .edit-query-form button[type="button"]:hover {
+    background-color: gray;
+}
+.admin-about-footer {
+    text-align: center;
+    margin-top: 80px;
+    padding: 20px;
+}
+
+.admin-about-footer p {
+    font-size: 0.9em;
+    font-weight: 700;
+}

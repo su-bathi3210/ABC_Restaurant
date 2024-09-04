@@ -76,15 +76,20 @@ const AdminOrder = () => {
                             <td>${order.totalPrice}</td>
                             <td>{order.status}</td>
                             <td>
-                                <button 
-                                style={{ backgroundColor: '	tomato', color: 'white' }}
-                                onClick={() => deleteOrder(order.orderId)}>Delete</button>
+                                <button
+                                    style={{ backgroundColor: '	tomato', color: 'white' }}
+                                    onClick={() => deleteOrder(order.orderId)}>Delete</button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
             <button className="generate-pdf-button" onClick={generatePDF}>Generate PDF</button>
+
+            <footer className="admin-about-footer">
+                <p>&copy; 2024 Our Restaurant. All Rights Reserved.</p>
+            </footer>
+
         </div>
     );
 };

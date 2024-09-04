@@ -8,6 +8,7 @@ import AdminProduct from './AdminProduct';
 import AdminReservation from './AdminReservation';
 import AdminOther from './AdminOther';
 import AdminUser from './AdminUser';
+import AdminQuery from './AdminQuery';
 
 function AdminRoutes() {
     const location = useLocation();
@@ -20,7 +21,8 @@ function AdminRoutes() {
         '/admin-facility',
         '/admin-reservation',
         '/admin-other',
-        '/admin-user'
+        '/admin-user',
+        '/admin-query'
     ];
 
     return (
@@ -37,6 +39,7 @@ function AdminRoutes() {
                 <Route path='/admin-product' element={<AdminProduct />} />
                 <Route path='/admin-other' element={<AdminOther />} />
                 <Route path='/admin-user' element={<AdminUser />} />
+                <Route path='/admin-query' element={<AdminQuery />} />
             </Routes>
         </>
     );

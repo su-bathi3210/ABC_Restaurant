@@ -22,6 +22,7 @@ const Navbar = ({ setShowLogin }) => {
           <li><a href="/gallery" className="navbar-item">Gallery</a></li>
           <li><a href="/facility" className="navbar-item">Facility</a></li>
           <li><a href="/reservation" className="navbar-item">Reservation</a></li>
+          <li><a href="/query" className="navbar-item">Query</a></li>
           <li><a href="/contact" className="navbar-item">Contact</a></li>
         </ul>
         <div className="navbar-auth">

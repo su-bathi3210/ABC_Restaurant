@@ -5,6 +5,8 @@ import StaffNavbar from './StaffNavbar';
 import StaffReservation from './StaffReservation';
 import StaffFeedback from './StaffFeedback';
 import StaffBranch from './StaffBranch';
+import StaffOrder from './StaffOrder';
+import StaffQuery from './StaffQuery';
 
 function StaffRoutes() {
   const location = useLocation();
@@ -12,11 +14,12 @@ function StaffRoutes() {
 
   const navbarRoutes = [
     '/staff',
-    '/staff-orders',
+    '/staff-order',
     '/staff-reservation',
     '/staff-feedback',
     '/staff-other',
-    '/staff-branch'
+    '/staff-branch',
+    '/staff-query'
   ];
 
   return (
@@ -30,6 +33,8 @@ function StaffRoutes() {
         <Route path='/staff-reservation' element={<StaffReservation />} />
         <Route path='/staff-feedback' element={<StaffFeedback />} />
         <Route path='/staff-branch' element={<StaffBranch />} />
+        <Route path='/staff-order' element={<StaffOrder />} />
+        <Route path='/staff-query' element={<StaffQuery />} />
       </Routes>
     </>
   );

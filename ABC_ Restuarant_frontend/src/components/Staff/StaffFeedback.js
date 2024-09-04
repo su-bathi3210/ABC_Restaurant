@@ -104,7 +104,9 @@ const StaffFeedback = () => {
                             <td>{feedback.rating}</td>
                             <td>{feedback.staffResponse}</td>
                             <td>
-                                <button className="btn btn-primary" onClick={() => openModal(feedback)}>
+                                <button className="btn btn-primary" 
+                                style={{ backgroundColor: 'tomato', color: 'white', width: '90px' }}
+                                onClick={() => openModal(feedback)}>
                                     {feedback.staffResponse ? 'Edit Response' : 'Respond'}
                                 </button>
                             </td>
