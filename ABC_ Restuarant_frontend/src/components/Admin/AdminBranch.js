@@ -127,13 +127,13 @@ const AdminBranch = () => {
                                     <td>{branch.phoneNumber}</td>
                                     <td>{branch.email}</td>
                                     <td>
-                                        <button 
-                                        style={{ backgroundColor: 'tomato', color: 'white'}} 
-                                        onClick={() => setEditingBranch(branch)}>Edit</button>
+                                        <button
+                                            style={{ backgroundColor: 'tomato', color: 'white' }}
+                                            onClick={() => setEditingBranch(branch)}>Edit</button>
 
-                                        <button 
-                                        style={{ backgroundColor: '	#e39533', color: 'white'}} 
-                                        onClick={() => handleDeleteBranch(branch.branchId)}>Delete</button>
+                                        <button
+                                            style={{ backgroundColor: '	#e39533', color: 'white' }}
+                                            onClick={() => handleDeleteBranch(branch.branchId)}>Delete</button>
                                     </td>
                                 </>
                             )}

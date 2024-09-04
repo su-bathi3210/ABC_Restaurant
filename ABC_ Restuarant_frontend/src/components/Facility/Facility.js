@@ -1,12 +1,11 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import './Facility.css';
-import axios from 'axios';
 
 const Facility = () => {
   const [facilities, setFacilities] = useState([]);
 
   useEffect(() => {
-    // Fetch the facility data from the backend
     axios.get('/facility')
       .then(response => {
         setFacilities(response.data);
