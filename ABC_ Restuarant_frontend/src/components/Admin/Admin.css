@@ -930,6 +930,51 @@ table button {
     background-color: #e53935;
 }
 
-table button + button {
+table button+button {
     margin-left: 8px;
+}
+
+/* Admin Order */
+.admin-orders {
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.admin-orders h2 {
+    font-size: 35px;
+    color: #d62e2e;
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+    margin-top: -97px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.admin-orders h2:hover {
+    transform: scale(1.1);
+}
+
+.admin-orders p {
+    font-size: 1.1vw;
+    line-height: 1.84;
+    font-weight: 500;
+    text-align: center;
+    margin-top: -41px;
+    margin-bottom: 50px;
+}
+
+.generate-pdf-button {
+    width: 120px;
+    padding: 12px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.generate-pdf-button:hover {
+    background-color: #600000;
 }
