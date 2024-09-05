@@ -18,7 +18,7 @@ const Contact = () => {
                 <div className="contact-info" data-aos="fade-right">
                     <div className="location">
                         <h2>Main Branch</h2>
-                        <p>123 Main Street, Bambalapitiya, Colombo</p>
+                        <p>123 Main Street, Baththaramulla, Colombo</p>
                         <p>Phone: (123) 456-7890</p>
                         <p>Email: info@abcrestaurant.com</p>
                     </div><br></br>
