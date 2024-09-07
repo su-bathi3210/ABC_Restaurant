@@ -1,7 +1,6 @@
 import React from 'react';
 import Feedback from './AdminFeedback';
 import Branch from './AdminBranch'
-
 const AdminOther = () => {
     return (
         <div>

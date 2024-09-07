@@ -56,7 +56,7 @@ public class QueryController {
                                 "Response: %s\n\n" +
                                 "If you have any further questions, please contact ABC Restaurant Front Desk.\n\n" +
                                 "ABC RESTAURANT \n" +
-                                "Telephone No: 0112744588",
+                                "Telephone No: (123) 456-7890",
                         query.getName(),
                         query.getSubject(),
                         query.getRespond()

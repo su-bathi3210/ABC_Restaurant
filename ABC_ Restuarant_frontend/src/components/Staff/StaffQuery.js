@@ -31,8 +31,14 @@ const StaffQuery = () => {
         e.preventDefault();
         if (!selectedQuery) return;
 
+        // Update the status and response before sending
+        const updatedQuery = {
+            ...selectedQuery,
+            status: 'done', // Mark as done to trigger email sending
+        };
+
         try {
-            const response = await axios.put(`/api/query/${selectedQuery.id}`, selectedQuery);
+            const response = await axios.put(`/api/query/${selectedQuery.id}`, updatedQuery);
             setQueries(queries.map(query => query.id === selectedQuery.id ? response.data : query));
             setSuccess('Query updated successfully.');
             setIsModalOpen(false);
@@ -66,8 +72,8 @@ const StaffQuery = () => {
                         <th>Email</th>
                         <th>Subject</th>
                         <th>Message</th>
-                        <th>Status</th>
                         <th>Respond</th>
+                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -154,7 +160,6 @@ const StaffQuery = () => {
                                 />
                             </div>
 
-
                             <div className="form-group">
                                 <select
                                     id="status"
@@ -180,7 +185,6 @@ const StaffQuery = () => {
                 <p>&copy; 2024 Our Restaurant. All Rights Reserved.</p>
             </footer>
         </div>
-        
     );
 };
 
