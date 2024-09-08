@@ -1,8 +1,8 @@
+import axios from 'axios';
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './PlaceOrder.css';
 import { StoreContext } from '../../components/StoreContext/StoreContext';
-import axios from 'axios';
+import './PlaceOrder.css';
 
 const PlaceOrder = () => {
     const { cartItems, getTotalCartAmount, clearCart } = useContext(StoreContext);
@@ -80,17 +80,17 @@ const PlaceOrder = () => {
                         <h2>Cart Total</h2>
                         <div className='cart-total-details'>
                             <p>Subtotal</p>
-                            <p>${getTotalCartAmount()}</p>
+                            <p>Rs.{getTotalCartAmount()}</p>
                         </div>
                         <hr />
                         <div className='cart-total-details'>
                             <p>Delivery Fee</p>
-                            <p>${2}</p>
+                            <p>Rs.{200}</p>
                         </div>
                         <hr />
                         <div className='cart-total-details'>
                             <p>Total</p>
-                            <p>${getTotalCartAmount() + 2}</p>
+                            <p>Rs.{getTotalCartAmount() + 200}</p>
                         </div>
                         <button type='submit'>PROCEED TO PAYMENT</button>
                         {error && <p className="error-message">{error}</p>}
