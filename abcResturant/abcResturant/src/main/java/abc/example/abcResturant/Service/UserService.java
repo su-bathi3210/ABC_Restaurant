@@ -15,37 +15,65 @@ public class UserService {
     private UserRepository userRepository;
 
     public List<User> allUser() {
-        return userRepository.findAll();
+        try {
+            return userRepository.findAll();
+        } catch (Exception e) {
+            throw new RuntimeException("Error while fetching users: " + e.getMessage(), e);
+        }
     }
 
     public Optional<User> singleUser(String userId) {  // Change ObjectId to String
-        return userRepository.findById(userId);
+        try {
+            return userRepository.findById(userId);
+        } catch (Exception e) {
+            throw new RuntimeException("Error while fetching user with ID " + userId + ": " + e.getMessage(), e);
+        }
     }
 
     public User addUser(User user) {
-        if (user.getUserId() == null || user.getUserId().isEmpty()) {
-            user.setUserId(generateUserId());  // Ensure userId is set
+        try {
+            if (user.getUserId() == null || user.getUserId().isEmpty()) {
+                user.setUserId(generateUserId());  // Ensure userId is set
+            }
+            return userRepository.save(user);
+        } catch (Exception e) {
+            throw new RuntimeException("Error while adding user: " + e.getMessage(), e);
         }
-        return userRepository.save(user);
     }
 
     private String generateUserId() {
-        long count = userRepository.count();
-        return String.format("U-%03d", count + 1);
+        try {
+            long count = userRepository.count();
+            return String.format("U-%03d", count + 1);
+        } catch (Exception e) {
+            throw new RuntimeException("Error while generating user ID: " + e.getMessage(), e);
+        }
     }
 
     public User updateUser(String userId, User user) {  // Change ObjectId to String
-        if (!userRepository.existsById(userId)) {
-            throw new ResourceNotFoundException("User not found with userId " + userId);
+        try {
+            if (!userRepository.existsById(userId)) {
+                throw new ResourceNotFoundException("User not found with userId " + userId);
+            }
+            user.setUserId(userId);  // Set the userId before saving
+            return userRepository.save(user);
+        } catch (ResourceNotFoundException e) {
+            throw e;  // Keep custom exceptions
+        } catch (Exception e) {
+            throw new RuntimeException("Error while updating user with ID " + userId + ": " + e.getMessage(), e);
         }
-        user.setUserId(userId);  // Set the userId before saving
-        return userRepository.save(user);
     }
 
     public void deleteUser(String userId) {  // Change ObjectId to String
-        if (!userRepository.existsById(userId)) {
-            throw new ResourceNotFoundException("User not found with userId " + userId);
+        try {
+            if (!userRepository.existsById(userId)) {
+                throw new ResourceNotFoundException("User not found with userId " + userId);
+            }
+            userRepository.deleteById(userId);
+        } catch (ResourceNotFoundException e) {
+            throw e;  // Keep custom exceptions
+        } catch (Exception e) {
+            throw new RuntimeException("Error while deleting user with ID " + userId + ": " + e.getMessage(), e);
         }
-        userRepository.deleteById(userId);
     }
 }
