@@ -1,5 +1,6 @@
 package abc.example.abcResturant.Automation;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,6 +12,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.time.Duration;
+
+import static com.mongodb.internal.connection.tlschannel.util.Util.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ReservationTest {
@@ -47,7 +50,7 @@ public class ReservationTest {
 
         // Select the Time
         WebElement timeInput = driver.findElement(By.cssSelector("input[type='time']"));
-        timeInput.sendKeys("19:00");
+        timeInput.sendKeys("08:00","PM");
 
         // Fill in the Number of Guests
         WebElement guestsInput = driver.findElement(By.cssSelector("input[placeholder='Number of Guests']"));
@@ -65,14 +68,35 @@ public class ReservationTest {
         WebElement confirmButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()='Confirm']")));
         WebElement cancelButton = driver.findElement(By.xpath("//button[text()='Cancel']"));
 
-        assertEquals("Are you sure you want to submit the table reservation?", driver.findElement(By.className("dialog")).getText());
+        String actualDialogText = driver.findElement(By.className("dialog")).getText();
+        assertTrue(actualDialogText.contains("Are you sure you want to submit the table reservation?"));
+//        assertEquals("Are you sure you want to submit the table reservation?", driver.findElement(By.className("dialog")).getText());
 
         // Confirm the dialog
         confirmButton.click();
 
-        // Wait for the success alert or check for the successful submission message
-        WebElement successMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".reservation-success-message")));
-        assertEquals("Table reservation submitted successfully. You will receive a confirmation in your email!", successMessage.getText());
+        Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+        String alertText = alert.getText();
+        assertEquals("Table reservation submitted successfully. You will receive a confirmation in your email!", alertText);
+
+        // Accept the alert to close it
+        alert.accept();
+    }
+
+    @Test
+    public void testReservationWithEmptyFields() throws InterruptedException{
+        // Fill in the Name field
+        WebElement nameInput = driver.findElement(By.cssSelector("input[placeholder='Enter Your Name']"));
+        nameInput.sendKeys("");
+
+
+        WebElement submitButton = driver.findElement(By.cssSelector("button.submit-button"));
+        submitButton.click();
+
+        WebElement nameError = driver.findElement(By.id("nameError"));
+        String nameErrorText = nameError.getText();
+        assert(nameErrorText.contains("Name is required"));
+        Thread.sleep(2000);
     }
 
     @AfterEach

@@ -103,7 +103,7 @@ const Reservation = () => {
           <div className="form-group">
             <label>Name:</label>
             <input type="text" {...registerTable('name')} placeholder="Enter Your Name" />
-            {tableErrors.name && <p>{tableErrors.name.message}</p>}
+            {tableErrors.name && <p id="nameError">{tableErrors.name.message}</p>}
           </div>
 
           <div className="form-group">
