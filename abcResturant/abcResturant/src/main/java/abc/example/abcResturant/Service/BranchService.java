@@ -17,40 +17,68 @@ public class BranchService {
 
     // Get all branches
     public List<Branch> getAllBranches() {
-        return branchRepository.findAll();
+        try {
+            return branchRepository.findAll();
+        } catch (Exception e) {
+            throw new RuntimeException("An error occurred while fetching all branches", e);
+        }
     }
 
     // Get a single branch by branchId
     public Optional<Branch> getBranchById(String branchId) {
-        return branchRepository.findById(branchId);
+        try {
+            return branchRepository.findById(branchId);
+        } catch (Exception e) {
+            throw new RuntimeException("An error occurred while fetching the branch with id " + branchId, e);
+        }
     }
 
     // Add a new branch
     public Branch createBranch(Branch branch) {
-        branch.setBranchId(generateBranchId());
-        return branchRepository.save(branch);
+        try {
+            branch.setBranchId(generateBranchId());
+            return branchRepository.save(branch);
+        } catch (Exception e) {
+            throw new RuntimeException("An error occurred while creating the branch", e);
+        }
     }
 
     // Generate a new branch ID
     private String generateBranchId() {
-        long count = branchRepository.count();
-        return String.format("B-%03d", count + 1);
+        try {
+            long count = branchRepository.count();
+            return String.format("B-%03d", count + 1);
+        } catch (Exception e) {
+            throw new RuntimeException("An error occurred while generating a new branch ID", e);
+        }
     }
 
     // Update an existing branch by branchId
     public Branch updateBranch(String branchId, Branch branch) {
-        if (!branchRepository.existsById(branchId)) {
-            throw new ResourceNotFoundException("Branch not found with id " + branchId);
+        try {
+            if (!branchRepository.existsById(branchId)) {
+                throw new ResourceNotFoundException("Branch not found with id " + branchId);
+            }
+            branch.setBranchId(branchId);
+            return branchRepository.save(branch);
+        } catch (ResourceNotFoundException e) {
+            throw e; // Propagate ResourceNotFoundException as it is a specific case
+        } catch (Exception e) {
+            throw new RuntimeException("An error occurred while updating the branch with id " + branchId, e);
         }
-        branch.setBranchId(branchId);
-        return branchRepository.save(branch);
     }
 
     // Delete a branch by branchId
     public void deleteBranch(String branchId) {
-        if (!branchRepository.existsById(branchId)) {
-            throw new ResourceNotFoundException("Branch not found with id " + branchId);
+        try {
+            if (!branchRepository.existsById(branchId)) {
+                throw new ResourceNotFoundException("Branch not found with id " + branchId);
+            }
+            branchRepository.deleteById(branchId);
+        } catch (ResourceNotFoundException e) {
+            throw e; // Propagate ResourceNotFoundException as it is a specific case
+        } catch (Exception e) {
+            throw new RuntimeException("An error occurred while deleting the branch with id " + branchId, e);
         }
-        branchRepository.deleteById(branchId);
     }
 }

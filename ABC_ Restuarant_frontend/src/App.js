@@ -9,23 +9,26 @@ import LoginPopup from './components/LoginPopup/LoginPopup';
 import Menu from './components/Menu/Menu';
 import Navbar from './components/Navbar/Navbar';
 import Reservation from './components/Reservation/Reservation';
-import Cart from './pages/Cart/Cart';
 import Home from './pages/Home/Home';
-import PlaceOrder from './pages/PlaceOrder/PlaceOrder';
 import Facility from './components/Facility/Facility';
 import StaffRoutes from './components/Staff/StaffRoutes';
 import Offer from './components/Offers/Offer';
 import Deals from './components/Offers/Deals';
 import Query from './components/Query/Query';
+import CustomerRoutes from './components/Customer/CustomerRoutes';
 
 
 function App() {
   const location = useLocation();
 
-  const shouldShowFooter = location.pathname === '/';
+  const shouldShowFooter = location.pathname === ('/customer');
 
 
-  const shouldShowNavbar = !location.pathname.startsWith('/admin') && !location.pathname.startsWith('/staff');
+  const shouldShowNavbar = !location.pathname.startsWith('/admin') &&
+    !location.pathname.startsWith('/staff') &&
+    !location.pathname.startsWith('/customer') &&
+    !location.pathname.startsWith('/order') &&
+    location.pathname !== '/cart';
 
   const [showLogin, setShowLogin] = useState(false);
 
@@ -42,14 +45,13 @@ function App() {
           <Route path='/contact' element={<Contact />} />
           <Route path='/facility' element={<Facility />} />
           <Route path='/reservation' element={<Reservation />} />
-          <Route path='/cart' element={<Cart />} />
-          <Route path='/order' element={<PlaceOrder />} />
           <Route path='/offer' element={<Offer />} />
           <Route path='/deals' element={<Deals />} />
           <Route path='/query' element={<Query />} />
         </Routes>
         <AdminRoutes />
         <StaffRoutes />
+        <CustomerRoutes />
       </div>
       {shouldShowFooter && <Footer />}
     </>

@@ -9,7 +9,7 @@ export const Footer = () => {
         <div className='footer-content-left'>
           <img src={assets.logo} alt='ABC Restaurant Logo' className='footer-logo' />
           <p>
-            At ABC Restaurant, we are committed to delivering a memorable dining experience that delights your taste buds and warms your heart. Our passion for culinary excellence is reflected in every dish, crafted with the freshest ingredients and served with a smile. Whether you're joining us for a casual meal or a special occasion, our team is dedicated to making every visit extraordinary. Visit us today at ABC Restaurant, where great food and great company come together. © 2024 ABC Restaurant. All rights reserved.
+            At ABC Restaurant, we are committed to delivering a memorable dining experience that delights your taste buds and warms your heart. Our passion for culinary excellence is reflected in every dish, crafted with the freshest ingredients and served with a smile. Whether you're joining us for a casual meal or a special occasion, our team is dedicated to making every visit extraordinary. Visit us today at ABC Restaurant, where great food and great company come together.
           </p>
           <div className='footer-social-icons'>
             <img src={assets.facebook_icon} alt='Facebook' />

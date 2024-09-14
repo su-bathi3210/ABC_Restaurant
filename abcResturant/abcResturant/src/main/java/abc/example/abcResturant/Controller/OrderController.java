@@ -3,6 +3,7 @@ package abc.example.abcResturant.Controller;
 import abc.example.abcResturant.Model.Order;
 import abc.example.abcResturant.Service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,37 +11,32 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/orders")
+@RequestMapping("/order")
 public class OrderController {
 
     @Autowired
     private OrderService orderService;
 
     @GetMapping
-    public List<Order> getAllOrders() {
-        return orderService.getAllOrders();
+    public ResponseEntity<List<Order>> getAllOrders() {
+        return new ResponseEntity<>(orderService.allOrder(), HttpStatus.OK);
     }
 
     @GetMapping("/{orderId}")
-    public ResponseEntity<Order> getOrderById(@PathVariable String orderId) {
-        Optional<Order> order = orderService.getOrderById(orderId);
-        return order.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
-    @GetMapping("/user/{userId}")
-    public List<Order> getOrdersByUserId(@PathVariable String userId) {
-        return orderService.getOrdersByUserId(userId);
+    public ResponseEntity<Optional<Order>> getSingleOrder(@PathVariable String orderId) {
+        return new ResponseEntity<>(orderService.singleOrder(orderId), HttpStatus.OK);
     }
 
     @PostMapping
-    public Order createOrder(@RequestBody Order order) {
-        return orderService.createOrder(order);
+    public ResponseEntity<Order> addOrder(@RequestBody Order order) {
+        Order newOrder = orderService.addOrder(order);
+        return new ResponseEntity<>(newOrder, HttpStatus.CREATED);
     }
 
     @PutMapping("/{orderId}")
-    public ResponseEntity<Order> updateOrder(@PathVariable String orderId, @RequestBody Order orderDetails) {
-        Order updatedOrder = orderService.updateOrder(orderId, orderDetails);
-        return updatedOrder != null ? ResponseEntity.ok(updatedOrder) : ResponseEntity.notFound().build();
+    public ResponseEntity<Order> updateOrder(@PathVariable String orderId, @RequestBody Order order) {
+        Order updatedOrder = orderService.updateOrder(orderId, order);
+        return new ResponseEntity<>(updatedOrder, HttpStatus.OK);
     }
 
     @DeleteMapping("/{orderId}")

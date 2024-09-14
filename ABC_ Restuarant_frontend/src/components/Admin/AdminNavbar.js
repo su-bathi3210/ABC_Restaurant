@@ -1,9 +1,20 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './Admin.css';
 import logo from '../../admin_assets/Admin.png';
 
 const AdminNavbar = ({ setShowLogin }) => {
+  const navigate = useNavigate();
+    const [signOutSuccess, setSignOutSuccess] = useState(false);
+
+    const handleSignOut = () => {
+      setSignOutSuccess(true);
+
+      setTimeout(() => {
+          navigate('/');
+          setSignOutSuccess(false);
+      }, 2000);
+  };
 
   return (
     <nav className="admin-navbar">
@@ -20,16 +31,20 @@ const AdminNavbar = ({ setShowLogin }) => {
           <li><Link to="/admin-query" className="admin-navbar-item">Query</Link></li>
           <li><Link to="/admin-user" className="admin-navbar-item">Users</Link></li>
           <li><Link to="/admin-other" className="admin-navbar-item">Other</Link></li>
-          
         </ul>
 
         <div className="navbar-auth">
-          <button onClick={() => setShowLogin(true)}>Sign Out</button>
+        <button onClick={handleSignOut} alt="Sign Out Button">Sign Out</button>
         </div>
-
       </div>
+      
+      {signOutSuccess && (
+                <div className="sign-out-message">
+                    <p>Sign out successful!</p>
+                </div>
+            )}
     </nav>
   );
-}
+};
 
 export default AdminNavbar;

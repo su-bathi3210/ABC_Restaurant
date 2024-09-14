@@ -1,9 +1,20 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../admin_assets/staff.png';
 import './Staff.css';
 
 const StaffNavbar = ({ setShowLogin }) => {
+  const navigate = useNavigate();
+  const [signOutSuccess, setSignOutSuccess] = useState(false);
+
+  const handleSignOut = () => {
+    setSignOutSuccess(true);
+
+    setTimeout(() => {
+      navigate('/');
+      setSignOutSuccess(false);
+    }, 2000);
+  };
 
   return (
     <nav className="staff-navbar">
@@ -22,10 +33,14 @@ const StaffNavbar = ({ setShowLogin }) => {
         </ul>
 
         <div className="navbar-auth">
-        <Link to=''><button onClick={() => setShowLogin(true)}>Sign Out</button></Link>
+          <button onClick={handleSignOut} alt="Sign Out Button">Sign Out</button>
         </div>
-
       </div>
+      {signOutSuccess && (
+        <div className="sign-out-message">
+          <p>Sign out successful!</p>
+        </div>
+      )}
     </nav>
   );
 }

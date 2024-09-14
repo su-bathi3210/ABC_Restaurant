@@ -41,15 +41,6 @@ public class UserService {
         }
     }
 
-    private String generateUserId() {
-        try {
-            long count = userRepository.count();
-            return String.format("U-%03d", count + 1);
-        } catch (Exception e) {
-            throw new RuntimeException("Error while generating user ID: " + e.getMessage(), e);
-        }
-    }
-
     public User updateUser(String userId, User user) {  // Change ObjectId to String
         try {
             if (!userRepository.existsById(userId)) {
@@ -76,4 +67,24 @@ public class UserService {
             throw new RuntimeException("Error while deleting user with ID " + userId + ": " + e.getMessage(), e);
         }
     }
+
+    private String generateUserId() {
+        List<User> users = userRepository.findAll();
+        int maxId = 0;
+        for (User user : users) {
+            String userId = user.getUserId();
+            try {
+                int numericPart = Integer.parseInt(userId.split("-")[1]);
+                if (numericPart > maxId) {
+                    maxId = numericPart;
+                }
+            } catch (Exception e) {
+                // Handle exception
+            }
+        }
+        int nextId = maxId + 1;
+        return String.format("U-%03d", nextId);
+    }
 }
+
+

@@ -3,6 +3,7 @@ package abc.example.abcResturant;
 import abc.example.abcResturant.Model.Order;
 import abc.example.abcResturant.Repository.OrderRepository;
 import abc.example.abcResturant.Service.OrderService;
+import abc.example.abcResturant.Exception.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -29,87 +30,89 @@ public class OrderServiceTest {
         MockitoAnnotations.openMocks(this);  // Initialize Mockito annotations
     }
 
-    // Test getAllOrders
+    // Test allOrder
     @Test
-    public void testGetAllOrders() {
-        Order order1 = new Order("1", "user1", Arrays.asList("prod1", "prod2"), "2023-09-01", 100.0, "Pending", "123 Main St", "Credit Card");
-        Order order2 = new Order("2", "user2", Arrays.asList("prod3", "prod4"), "2023-09-02", 200.0, "Shipped", "456 Elm St", "PayPal");
+    public void testAllOrder() {
+        Order order1 = new Order("O-001", "user1", Arrays.asList("prod1", "prod2"), "2023-09-01", 100.0, "Pending", "123 Main St", "Credit Card");
+        Order order2 = new Order("O-002", "user2", Arrays.asList("prod3", "prod4"), "2023-09-02", 200.0, "Shipped", "456 Elm St", "PayPal");
 
         when(orderRepository.findAll()).thenReturn(Arrays.asList(order1, order2));
 
-        List<Order> orders = orderService.getAllOrders();
+        List<Order> orders = orderService.allOrder();
 
         assertEquals(2, orders.size());
         verify(orderRepository, times(1)).findAll();
     }
 
-    // Test getOrderById
+    // Test singleOrder
     @Test
-    public void testGetOrderById() {
-        Order order = new Order("1", "user1", Arrays.asList("prod1", "prod2"), "2023-09-01", 100.0, "Pending", "123 Main St", "Credit Card");
+    public void testSingleOrder() {
+        Order order = new Order("O-001", "user1", Arrays.asList("prod1", "prod2"), "2023-09-01", 100.0, "Pending", "123 Main St", "Credit Card");
 
-        when(orderRepository.findById("1")).thenReturn(Optional.of(order));
+        when(orderRepository.findById("O-001")).thenReturn(Optional.of(order));
 
-        Optional<Order> foundOrder = orderService.getOrderById("1");
+        Optional<Order> foundOrder = orderService.singleOrder("O-001");
 
         assertTrue(foundOrder.isPresent());
-        assertEquals("1", foundOrder.get().getOrderId());
-        verify(orderRepository, times(1)).findById("1");
+        assertEquals("O-001", foundOrder.get().getOrderId());
+        verify(orderRepository, times(1)).findById("O-001");
     }
 
-    // Test getOrdersByUserId
+    // Test addOrder
     @Test
-    public void testGetOrdersByUserId() {
-        Order order1 = new Order("1", "user1", Arrays.asList("prod1", "prod2"), "2023-09-01", 100.0, "Pending", "123 Main St", "Credit Card");
-        Order order2 = new Order("2", "user1", Arrays.asList("prod3", "prod4"), "2023-09-02", 200.0, "Shipped", "456 Elm St", "PayPal");
-
-        when(orderRepository.findByUserId("user1")).thenReturn(Arrays.asList(order1, order2));
-
-        List<Order> userOrders = orderService.getOrdersByUserId("user1");
-
-        assertEquals(2, userOrders.size());
-        verify(orderRepository, times(1)).findByUserId("user1");
-    }
-
-    // Test createOrder
-    @Test
-    public void testCreateOrder() {
-        Order order = new Order("1", "user1", Arrays.asList("prod1", "prod2"), "2023-09-01", 100.0, "Pending", "123 Main St", "Credit Card");
+    public void testAddOrder() {
+        Order order = new Order("O-001", "user1", Arrays.asList("prod1", "prod2"), "2023-09-01", 100.0, "Pending", "123 Main St", "Credit Card");
 
         when(orderRepository.save(order)).thenReturn(order);
 
-        Order savedOrder = orderService.createOrder(order);
+        Order savedOrder = orderService.addOrder(order);
 
         assertNotNull(savedOrder);
-        assertEquals("1", savedOrder.getOrderId());
+        assertEquals("O-001", savedOrder.getOrderId());
         verify(orderRepository, times(1)).save(order);
     }
 
     // Test updateOrder
     @Test
     public void testUpdateOrder() {
-        Order existingOrder = new Order("1", "user1", Arrays.asList("prod1", "prod2"), "2023-09-01", 100.0, "Pending", "123 Main St", "Credit Card");
-        Order updatedOrderDetails = new Order("1", "user1", Arrays.asList("prod3", "prod4"), "2023-09-02", 150.0, "Shipped", "456 Elm St", "PayPal");
+        Order existingOrder = new Order("O-001", "user1", Arrays.asList("prod1", "prod2"), "2023-09-01", 100.0, "Pending", "123 Main St", "Credit Card");
+        Order updatedOrderDetails = new Order("O-001", "user1", Arrays.asList("prod3", "prod4"), "2023-09-02", 150.0, "Shipped", "456 Elm St", "PayPal");
 
-        when(orderRepository.findById("1")).thenReturn(Optional.of(existingOrder));
+        when(orderRepository.findById("O-001")).thenReturn(Optional.of(existingOrder));
         when(orderRepository.save(existingOrder)).thenReturn(existingOrder);
 
-        Order updatedOrder = orderService.updateOrder("1", updatedOrderDetails);
+        Order updatedOrder = orderService.updateOrder("O-001", updatedOrderDetails);
 
         assertNotNull(updatedOrder);
         assertEquals("Shipped", updatedOrder.getStatus());
         assertEquals(150.0, updatedOrder.getTotalPrice());
-        verify(orderRepository, times(1)).findById("1");
+        verify(orderRepository, times(1)).findById("O-001");
         verify(orderRepository, times(1)).save(existingOrder);
     }
 
     // Test deleteOrder
     @Test
     public void testDeleteOrder() {
-        doNothing().when(orderRepository).deleteById("1");
+        Order existingOrder = new Order("O-001", "user1", Arrays.asList("prod1", "prod2"), "2023-09-01", 100.0, "Pending", "123 Main St", "Credit Card");
 
-        orderService.deleteOrder("1");
+        when(orderRepository.findById("O-001")).thenReturn(Optional.of(existingOrder));
+        doNothing().when(orderRepository).deleteById("O-001");
 
-        verify(orderRepository, times(1)).deleteById("1");
+        orderService.deleteOrder("O-001");
+
+        verify(orderRepository, times(1)).findById("O-001");
+        verify(orderRepository, times(1)).deleteById("O-001");
+    }
+
+    // Test deleteOrder when order does not exist
+    @Test
+    public void testDeleteOrderNotFound() {
+        when(orderRepository.findById("O-999")).thenReturn(Optional.empty());
+
+        assertThrows(ResourceNotFoundException.class, () -> {
+            orderService.deleteOrder("O-999");
+        });
+
+        verify(orderRepository, times(1)).findById("O-999");
     }
 }

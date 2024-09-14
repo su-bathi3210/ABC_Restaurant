@@ -13,7 +13,7 @@ const AdminOrder = () => {
 
     const fetchOrders = async () => {
         try {
-            const response = await axios.get('/api/orders');
+            const response = await axios.get('/order');
             setOrders(response.data);
         } catch (error) {
             console.error('Error fetching orders:', error);
@@ -23,7 +23,7 @@ const AdminOrder = () => {
 
     const deleteOrder = async (orderId) => {
         try {
-            await axios.delete(`/api/orders/${orderId}`);
+            await axios.delete(`/order/${orderId}`);
             setOrders(orders.filter(order => order.orderId !== orderId));
             alert(`Order ${orderId} deleted successfully`);
         } catch (error) {
@@ -32,16 +32,21 @@ const AdminOrder = () => {
         }
     };
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toISOString().split('T')[0];  // Extracts only the date in YYYY-MM-DD format
+    };
+
     const generatePDF = () => {
         const doc = new jsPDF();
         doc.text('Orders Report', 14, 16);
 
-        const tableColumn = ['User ID', 'Order Date', 'Delivery Address', 'Total Price', 'Status'];
+        const tableColumn = ['Order ID', 'Order Date', 'Delivery Address', 'Total Price', 'Status'];
         const tableRows = orders.map(order => [
-            order.userId,
-            order.orderDate,
+            order.orderId,
+            formatDate(order.orderDate),  // Using the formatDate function
             order.deliveryAddress,
-            `$${order.totalPrice}`,
+            `Rs.${order.totalPrice}`,
             order.status
         ]);
 
@@ -59,7 +64,7 @@ const AdminOrder = () => {
             <table className='orders-table'>
                 <thead>
                     <tr>
-                        <th>User ID</th>
+                        <th>Order ID</th>
                         <th>Order Date</th>
                         <th>Delivery Address</th>
                         <th>Total Price</th>
@@ -70,14 +75,14 @@ const AdminOrder = () => {
                 <tbody>
                     {orders.map(order => (
                         <tr key={order.orderId}>
-                            <td>{order.userId}</td>
-                            <td>{order.orderDate}</td>
+                            <td>{order.orderId}</td>
+                            <td>{formatDate(order.orderDate)}</td>  {/* Format the order date */}
                             <td>{order.deliveryAddress}</td>
-                            <td>${order.totalPrice}</td>
+                            <td>Rs.{order.totalPrice}</td>
                             <td>{order.status}</td>
                             <td>
                                 <button
-                                    style={{ backgroundColor: '	tomato', color: 'white' }}
+                                    style={{ backgroundColor: 'tomato', color: 'white' }}
                                     onClick={() => deleteOrder(order.orderId)}>Delete</button>
                             </td>
                         </tr>

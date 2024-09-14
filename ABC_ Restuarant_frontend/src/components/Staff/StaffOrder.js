@@ -10,12 +10,12 @@ const StaffOrder = () => {
         productIds: '',
         orderDate: '',
         totalPrice: '',
-        status: 'Pending', // Default value for status
+        status: 'Pending', 
         deliveryAddress: '',
         paymentMethod: ''
     });
     const [error, setError] = useState('');
-    const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
+    const [isModalOpen, setIsModalOpen] = useState(false); 
 
     useEffect(() => {
         fetchOrders();
@@ -23,8 +23,12 @@ const StaffOrder = () => {
 
     const fetchOrders = async () => {
         try {
-            const response = await axios.get('/api/orders');
-            setOrders(response.data);
+            const response = await axios.get('/order');
+            const formattedOrders = response.data.map(order => ({
+                ...order,
+                orderDate: order.orderDate.split('T')[0], // Only keep date, remove time
+            }));
+            setOrders(formattedOrders);
         } catch (error) {
             console.error('Error fetching orders:', error);
             setError('Failed to load orders. Please try again.');
@@ -34,7 +38,7 @@ const StaffOrder = () => {
     const handleEdit = (order) => {
         setEditingOrderId(order.orderId);
         setFormData({
-            userId: order.userId,
+            orderId: order.orderId,
             productIds: order.productIds.join(', '),
             orderDate: order.orderDate,
             totalPrice: order.totalPrice,
@@ -42,18 +46,7 @@ const StaffOrder = () => {
             deliveryAddress: order.deliveryAddress,
             paymentMethod: order.paymentMethod
         });
-        setIsModalOpen(true); // Open the modal when editing
-    };
-
-    const handleDelete = async (orderId) => {
-        try {
-            await axios.delete(`/api/orders/${orderId}`);
-            setOrders(orders.filter(order => order.orderId !== orderId));
-            alert(`Order ${orderId} deleted successfully`);
-        } catch (error) {
-            console.error('Error deleting order:', error);
-            setError('Failed to delete order. Please try again.');
-        }
+        setIsModalOpen(true); 
     };
 
     const handleChange = (e) => {
@@ -63,22 +56,20 @@ const StaffOrder = () => {
     const handleSave = async () => {
         try {
             if (editingOrderId) {
-                // Update existing order
-                await axios.put(`/api/orders/${editingOrderId}`, {
+                await axios.put(`/order/${editingOrderId}`, {
                     ...formData,
                     productIds: formData.productIds.split(',').map(id => id.trim())
                 });
                 alert(`Order ${editingOrderId} updated successfully`);
             } else {
-                // Add new order
-                await axios.post('/api/orders', {
+                await axios.post('/order', {
                     ...formData,
                     productIds: formData.productIds.split(',').map(id => id.trim())
                 });
                 alert('New order added successfully');
             }
             setEditingOrderId(null);
-            setIsModalOpen(false); // Close the modal after saving
+            setIsModalOpen(false); 
             fetchOrders();
         } catch (error) {
             console.error('Error saving order:', error);
@@ -89,15 +80,15 @@ const StaffOrder = () => {
     const handleCancel = () => {
         setEditingOrderId(null);
         setFormData({
-            userId: '',
+            orderId: '',
             productIds: '',
             orderDate: '',
             totalPrice: '',
-            status: 'Pending', // Reset status to default
+            status: 'Pending', 
             deliveryAddress: '',
             paymentMethod: ''
         });
-        setIsModalOpen(false); // Close the modal on cancel
+        setIsModalOpen(false); 
     };
 
     return (
@@ -112,7 +103,7 @@ const StaffOrder = () => {
             <table className='orders-table'>
                 <thead>
                     <tr>
-                        <th>User ID</th>
+                        <th>Order ID</th>
                         <th>P.ID</th>
                         <th>O.Date</th>
                         <th>Address</th>
@@ -125,20 +116,17 @@ const StaffOrder = () => {
                 <tbody>
                     {orders.map(order => (
                         <tr key={order.orderId}>
-                            <td>{order.userId}</td>
+                            <td>{order.orderId}</td>
                             <td>{order.productIds.join(', ')}</td>
                             <td>{order.orderDate}</td>
                             <td>{order.deliveryAddress}</td>
-                            <td>${order.totalPrice}</td>
+                            <td>Rs.{order.totalPrice}</td>
                             <td>{order.status}</td>
                             <td>{order.paymentMethod}</td>
                             <td>
                                 <button
-                                    style={{ backgroundColor: '#600000', color: 'white' }}
-                                    onClick={() => handleEdit(order)}>Edit</button>
-                                <button
                                     style={{ backgroundColor: 'tomato', color: 'white' }}
-                                    onClick={() => handleDelete(order.orderId)}>Delete</button>
+                                    onClick={() => handleEdit(order)}>Edit</button>
                             </td>
                         </tr>
                     ))}
@@ -218,6 +206,7 @@ const StaffOrder = () => {
                     </div>
                 </div>
             )}
+
             <footer className="admin-about-footer">
                 <p>&copy; 2024 Our Restaurant. All Rights Reserved.</p>
             </footer>
